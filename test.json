@@ -7,7 +7,7 @@
   "SUT":"127.0.0.1",
   "USER":"ddm_guest",
   "PASSWD":"ddm_guest",
-  "FUNtableNum_in_Mapping_Queue":2，
+  "FUNtableNum_in_Mapping_Queue":2,
   "SplitCaseNums":5,
   "SUT_PORT":22
 }
