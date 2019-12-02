@@ -1,6 +1,6 @@
- {
+{
   "exp-metadata": {
-    "exp-application-name": "hlr",
+    "exp-application-name": "hssims",
     "app-major-version": 20,
     "app-minor-version": 0,
     "app-patch-version": 0,
@@ -32,953 +32,594 @@
   "exp-content": {
     "adaptation-rules": {
       "name-adaptation-rules": [
-        {
-          "map-name": "hlrWithMsisdnToImsi",
+		{
+          "map-name": "hssWithMsisdnToSubId",
           "match-dn": "msisdn=#1,dc=MSISDN,dc=C-NTDB",
-          "map-dn": "msisdn=#1,ds=hlr,subdata=relation,msisdn=#1,dc=MSISDN,dc=C-NTDB",
-          "map-dn-prefix": "msisdn=#1,ds=hlr,subdata=relation",
+          "map-dn": "msisdn=#1,ds=hss,subdata=relation,msisdn=#1,dc=MSISDN,dc=C-NTDB",
+          "map-dn-prefix": "msisdn=#1,ds=hss,subdata=relation",
           "index-rule": "commonMsisdnIndexRule"
         },
         {
-          "map-name": "hlrWithImsiToImsi",
+          "map-name": "hssWithImsiToSubId",
           "match-dn": "imsi=#1,dc=IMSI,dc=C-NTDB",
-          "map-dn": "imsi=#1,ds=hlr,subdata=services,imsi=#1,dc=IMSI,dc=C-NTDB",
-          "map-dn-prefix": "imsi=#1,ds=hlr,subdata=services",
+          "map-dn": "imsi=#1,ds=hss,subdata=relation,imsi=#1,dc=IMSI,dc=C-NTDB",
+          "map-dn-prefix": "imsi=#1,ds=hss,subdata=relation",
           "index-rule": "commonImsiIndexRule"
         },
         {
-          "map-name": "hlrGroupMsisdnKeyExtraction",
-          "match-dn": "*,groupMsisdn=#1,ds=hlr,ds=GROUPS,o=*,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrGroupMsisdnIndexRule"
+          "map-name": "hssWithImpiToSubId",
+          "match-dn": "privateId=#1,dc=IMPI,dc=C-NTDB",
+          "map-dn": "privateId=#1,ds=hss,subdata=relation,privateId=#1,dc=IMPI,dc=C-NTDB",
+          "map-dn-prefix": "privateId=#1,ds=hss,subdata=relation",
+          "index-rule": "commonImpiIndexRule"
         },
         {
-          "map-name": "hlrGroupMsisdnAliasKeyExtraction",
-          "match-dn": "*,msisdn=#1,dc=hlrGroupMSISDN,dc=C-NTDB",
-          "allow-document-creation": false,
-          "index-rule": "hlrGroupMsisdnIndexRule"
+          "map-name": "hssWithImpuToSubId",
+          "match-dn": "publicId=#1,dc=IMPU,dc=C-NTDB",
+          "map-dn": "publicId=#1,ds=hss,subdata=relation,publicId=#1,dc=IMPU,dc=C-NTDB",
+          "map-dn-prefix": "publicId=#1,ds=hss,subdata=relation",
+          "index-rule": "commonImpuIndexRule"
         },
         {
-          "map-name": "hlrNsrRootEntryKeyExtraction",
-          "match-dn": "o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrRootEntryKeyExtraction",
+          "match-dn": "o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrRootEntryIndexRule",
+          "index-rule": "hssNsrRootEntryIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr" ],
-          "search-tag": "hlr-nsr"
+          "create-tags": [ "hss-nsr" ],
+          "search-tag": "hss-nsr"
         },
         {
-          "map-name": "hlrNsrUpperNodeKeyExtraction",
-          "match-dn": "*,o=#1,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrUpperNodeKeyExtraction",
+          "match-dn": "*,o=#1,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrUpperNodeIndexRule",
+          "index-rule": "hssNsrUpperNodeIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-#1" ],
-          "search-tag": "hlr-nsr-#1"
+          "create-tags": [ "hss-nsr", "hss-nsr-#1" ],
+          "search-tag": "hss-nsr-#1"
         },
         {
-          "map-name": "hlrNsrDCSIKeyExtraction",
-          "match-dn": "*,dCsiName=#1,o=dcsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrAsPermissionsKeyExtraction",
+          "match-dn": "*,asHostName=#1,o=hssAsPermissions,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrDCSIIndexRule",
+          "index-rule": "hssNsrAsPermissionsIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-dcsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-hssAsPermissions" ]
         },
         {
-          "map-name": "hlrNsrSSCSIKeyExtraction",
-          "match-dn": "*,ssCsiName=#1,o=sscsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrGlobalFilterCriteriaKeyExtraction",
+          "match-dn": "*,filterName=#1,o=hssGlobalFilterCriteria,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrSSCSIIndexRule",
+          "index-rule": "hssNsrGlobalFilterCriteriaIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-sscsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-hssGlobalFilterCriteria" ]
         },
         {
-          "map-name": "hlrNsrMCSIKeyExtraction",
-          "match-dn": "*,mCsiName=#1,o=mcsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrServiceIDsKeyExtraction",
+          "match-dn": "*,serviceIndName=#1,o=hssServiceIDs,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrMCSIIndexRule",
+          "index-rule": "hssNsrServiceIDsIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-mcsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-hssServiceIDs" ]
         },
         {
-          "map-name": "hlrNsrMGCSIKeyExtraction",
-          "match-dn": "*,mgCsiName=#1,o=mgcsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrGroupImpuKeyExtraction",
+          "match-dn": "*,publicId=#1,o=hssGroupImpu,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrMGCSIIndexRule",
+          "index-rule": "hssNsrGroupImpuIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-mgcsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-hssGroupImpu" ]
         },
         {
-          "map-name": "hlrNsrSCTRANSKeyExtraction",
-          "match-dn": "*,sCodeOrFtno=#1,o=scodetransl,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrXmlSchemaKeyExtraction",
+          "match-dn": "*,xmlSchemaId=#1,o=hssXmlSchema,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrSCTRANSIndexRule",
+          "index-rule": "hssNsrXmlSchemaIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-scodetransl" ]
+          "search-tag": "hss-nsr-hssXmlSchema-#1",
+          "create-tags": [ "hss-nsr", "hss-nsr-hssXmlSchema", "hss-nsr-hssXmlSchema-#1" ]
         },
         {
-          "map-name": "hlrNsrMSPKeyExtraction",
-          "match-dn": "*,mspName=#1,o=msp,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrVisitedNetwListKeyExtraction",
+          "match-dn": "*,netwListId=#1,o=hssVisitedNetwList,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrMSPIndexRule",
+          "index-rule": "hssNsrVisitedNetwListIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-msp" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-hssVisitedNetwList" ]
         },
         {
-          "map-name": "hlrNsrGPRSCSIKeyExtraction",
-          "match-dn": "*,gprsCsiName=#1,o=gprscsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrVisitedNetworksKeyExtraction",
+          "match-dn": "*,visitedNetwDomain=#1,o=hssVisitedNetworks,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrGPRSCSIIndexRule",
+          "index-rule": "hssNsrVisitedNetworksIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-gprscsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-hssVisitedNetworks" ]
         },
         {
-          "map-name": "hlrNsrSMSCSIKeyExtraction",
-          "match-dn": "*,smsCsiName=#1,o=smscsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrNafGroupIdsKeyExtraction",
+          "match-dn": "*,nafGroupName=#1,o=hssNafGroupIds,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrSMSCSIIndexRule",
+          "index-rule": "hssNsrNafGroupIdsIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-smscsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-hssNafGroupIds" ]
         },
         {
-          "map-name": "hlrNsrVTCSIKeyExtraction",
-          "match-dn": "*,vtCsiName=#1,o=vtcsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrCXRESTRICTIONVPLMNIDKeyExtraction",
+          "match-dn": "*,hssCxRestrictionVPLMNId=#1,o=hssCX-RESTRICTION-VPLMNID,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrVTCSIIndexRule",
+          "index-rule": "hssNsrCXRESTRICTIONVPLMNIDIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-vtcsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-hssCX-RESTRICTION-VPLMNID" ]
         },
         {
-          "map-name": "hlrNsrMTSMSCSIKeyExtraction",
-          "match-dn": "*,mtsmsCsiName=#1,o=mtsmscsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrImsAsSipAddressKeyExtraction",
+          "match-dn": "*,imsAsSipAddressName=#1,o=imsAsSipAddress,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrMTSMSCSIIndexRule",
+          "index-rule": "hssNsrImsAsSipAddressIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-mtsmscsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-imsAsSipAddress" ]
         },
         {
-          "map-name": "hlrNsrUGCSIKeyExtraction",
-          "match-dn": "*,ugShortcode=#1,o=ugcsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrImsGlobalTriggerPointKeyExtraction",
+          "match-dn": "*,imsTriggerPointName=#1,o=imsGlobalTriggerPoint,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrUGCSIIndexRule",
+          "index-rule": "hssNsrImsGlobalTriggerPointIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-ugcsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-imsGlobalTriggerPoint" ]
         },
         {
-          "map-name": "hlrNsrUGCSIExtKeyExtraction",
-          "match-dn": "*,ugShortcodeExt=#1,o=ugcsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrImsServiceIdListKeyExtraction",
+          "match-dn": "*,imsServiceIdListName=#1,o=imsServiceIdList,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrUGCSIExtIndexRule",
+          "index-rule": "hssNsrImsServiceIdListIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-ugcsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-imsServiceIdList" ]
         },
         {
-          "map-name": "hlrNsrLCSPROFKeyExtraction",
-          "match-dn": "*,lcsProfName=#1,o=lcsprof,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrImsSharedRepositoryDataKeyExtraction",
+          "match-dn": "*,imsRepDataName=#1,o=imsSharedRepositoryData,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrLCSPROFIndexRule",
+          "index-rule": "hssNsrImsSharedRepositoryDataIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-lcsprof" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-imsSharedRepositoryData" ]
         },
         {
-          "map-name": "hlrNsrOCSIKeyExtraction",
-          "match-dn": "*,inmocName=#1,o=ocsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrImsSharedProfileKeyExtraction",
+          "match-dn": "*,imsSupName=#1,o=imsSharedProfile,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrOCSIIndexRule",
+          "index-rule": "hssNsrImsSharedProfileIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-ocsi" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-imsSharedProfile" ]
         },
         {
-          "map-name": "hlrNsrUCSIKeyExtraction",
-          "match-dn": "*,nsrUCSIName=#1,o=ucsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrImsSharedServiceProfileKeyExtraction",
+          "match-dn": "*,profileName=#1,o=imsSharedServiceProfile,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrUCSIIndexRule",
+          "index-rule": "hssNsrImsSharedServiceProfileIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-ucsi" ]
+          "search-tag": "hss-nsr-imsSharedServiceProfile-#1",
+          "create-tags": [ "hss-nsr", "hss-nsr-imsSharedServiceProfile", "hss-nsr-imsSharedServiceProfile-#1" ]
         },
         {
-          "map-name": "hlrNsrTCSIKeyExtraction",
-          "match-dn": "*,inmtcName=#1,o=tcsi,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrWildcardIdentityKeyExtraction",
+          "match-dn": "*,imsDomainName=#1,o=hssWildcardIdentity,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrTCSIIndexRule",
+          "index-rule": "hssNsrWildcardIdentityIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-tcsi" ]
+          "search-tag": "hss-nsr-hssWildcardDomain-#1",
+          "create-tags": [
+            "hss-nsr",
+            "hss-nsr-hssWildcardIdentity",
+            "hss-nsr-hssWildcardDomain-#1"
+          ]
         },
         {
-          "map-name": "hlrNsrBCASETKeyExtraction",
-          "match-dn": "*,bcn=#1,o=bcaset,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrWildcardImpuKeyExtraction",
+          "match-dn": "*,publicId=#1,imsDomainName=#2,o=hssWildcardIdentity,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrBCASETIndexRule",
+          "index-rule": "hssNsrWildcardImpuIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-bcaset" ]
+          "create-tags": [
+            "hss-nsr",
+            "hss-nsr-hssWildcardIdentity",
+            "hss-nsr-hssWildcardDomain-#2"
+          ]
         },
         {
-          "map-name": "hlrNsrSUBRELROKeyExtraction",
-          "match-dn": "*,subscrServ=#1,o=subrelro,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrResetInfoKeyExtraction",
+          "match-dn": "*,be-dsaClustAddr=#1,o=resetInfo,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrSUBRELROIndexRule",
+          "index-rule": "hssNsrResetInfoIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-subrelro" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-resetInfo" ]
         },
         {
-          "map-name": "hlrNsrQOFSERVKeyExtraction",
-          "match-dn": "*,qOfServName=#1,o=qosprof,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrDeleteInfoKeyExtraction",
+          "match-dn": "*,o=#1,o=deleteInfo,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrQOFSERVIndexRule",
+          "index-rule": "hssNsrDeleteInfoIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-qosprof" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-deleteInfo" ]
         },
         {
-          "map-name": "hlrNsrEOICKKeyExtraction",
-          "match-dn": "*,eoickName=#1,o=eoick,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrHssXmlSubSchemaKeyExtraction",
+          "match-dn": "*,xmlSubSchemaId=#1,xmlSchemaId=#2,o=hssXmlSchema,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrEOICKIndexRule",
+          "index-rule": "hssNsrHssXmlSubSchemaIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-eoick" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-hssXmlSchema", "hss-nsr-hssXmlSchema-#2" ]
         },
         {
-          "map-name": "hlrNsrEOINCIKeyExtraction",
-          "match-dn": "*,eoinciName=#1,o=eoinci,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrImsGifcDataKeyExtraction",
+          "match-dn": "*,imsRefGlobalFilterID=#1,profileName=#2,o=imsSharedServiceProfile,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrEOINCIIndexRule",
+          "index-rule": "hssNsrImsGifcDataIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-eoinci" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-imsSharedServiceProfile", "hss-nsr-imsSharedServiceProfile-#2" ]
         },
         {
-          "map-name": "hlrNsrOICKKeyExtraction",
-          "match-dn": "*,oickName=#1,o=oick,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrHssCapacityCountersKeyExtraction",
+          "match-dn": "*,hssCounterName=#1,o=hssCapacityCounters,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrOICKIndexRule",
+          "index-rule": "hssNsrHssCapacityCountersIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-oick" ]
+          "search-tag": "hss-nsr-hssCapacityCounters-#1",
+          "create-tags": [ "hss-nsr", "hss-nsr-hssCapacityCounters", "hss-nsr-hssCapacityCounters-#1" ]
         },
         {
-          "map-name": "hlrNsrETICKKeyExtraction",
-          "match-dn": "*,etickName=#1,o=etick,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrHssDatasetCountersKeyExtraction",
+          "match-dn": "*,ds=#1,hssCounterName=#2,o=hssCapacityCounters,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrETICKIndexRule",
+          "index-rule": "hssNsrHssDatasetCountersIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-etick" ]
+          "search-tag": "hss-nsr-hssCapacityCounters-#2",
+          "create-tags": [ "hss-nsr", "hss-nsr-hssCapacityCounters", "hss-nsr-hssCapacityCounters-#2" ]
         },
         {
-          "map-name": "hlrNsrETINCIKeyExtraction",
-          "match-dn": "*,etinciName=#1,o=etinci,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssNsrHssGenericCountersKeyExtraction",
+          "match-dn": "*,hssGenericCounterName=#1,ds=#2,hssCounterName=#3,o=hssCapacityCounters,o=hss,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrETINCIIndexRule",
+          "index-rule": "hssNsrHssGenericCountersIndexRule",
           "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-etinci" ]
-        },
-        {
-          "map-name": "hlrNsrTICKKeyExtraction",
-          "match-dn": "*,tickName=#1,o=tick,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrTICKIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-tick" ]
-        },
-        {
-          "map-name": "hlrNsrVMSKeyExtraction",
-          "match-dn": "*,ShortCode=#1,o=vms,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrVMSIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-vms" ]
-        },
-        {
-          "map-name": "hlrNsrROAMAREAKeyExtraction",
-          "match-dn": "*,roamAreaName=#1,o=roamarea,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrROAMAREAIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-roamarea" ]
-        },
-        {
-          "map-name": "hlrNsrRESETINFOKeyExtraction",
-          "match-dn": "*,be-dsaClustAddr=#1,o=RESET-INFO,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrRESETINFOIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-RESET-INFO" ]
-        },
-        {
-          "map-name": "hlrNsrDELETEINFOKeyExtraction",
-          "match-dn": "*,o=#1,o=deleteInfo,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrDELETEINFOIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-deleteInfo" ]
-        },
-        {
-          "map-name": "hlrNsrPROHIBFTNOKeyExtraction",
-          "match-dn": "*,MSUBAttrFtno1=#1,o=prohibftno,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrPROHIBFTNOIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-prohibftno" ]
-        },
-        {
-          "map-name": "hlrNsrREGEXKeyExtraction",
-          "match-dn": "*,regexName=#1,o=regex,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrREGEXIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-regex" ]
-        },
-        {
-          "map-name": "hlrNsrADVTKeyExtraction",
-          "match-dn": "*,advtName=#1,o=advt,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrADVTIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-advt" ]
-        },
-        {
-          "map-name": "hlrNsrEMOICKKeyExtraction",
-          "match-dn": "*,emoIckName=#1,o=emoick,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrEMOICKIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-emoick" ]
-        },
-        {
-          "map-name": "hlrNsrSSETKeyExtraction",
-          "match-dn": "*,ssetName=#1,o=sset,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrSSETIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-sset" ]
-        },
-        {
-          "map-name": "hlrNsrPRIORITYLISTKeyExtraction",
-          "match-dn": "*,priorityListName=#1,o=prioritylist,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrPRIORITYLISTIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-prioritylist" ]
-        },
-        {
-          "map-name": "hlrNsrPDPCONTEXTKeyExtraction",
-          "match-dn": "*,pdpContextName=#1,o=pdpcontext,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrPDPCONTEXTIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-pdpcontext" ]
-        },
-        {
-          "map-name": "hlrNsrADDRESSLISTKeyExtraction",
-          "match-dn": "*,addressListName=#1,o=addresslist,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrADDRESSLISTIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-addresslist" ]
-        },
-        {
-          "map-name": "hlrNsrINSMSKeyExtraction",
-          "match-dn": "*,inSmsName=#1,o=insms,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrINSMSIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-insms" ]
-        },
-        {
-          "map-name": "hlrNsrGMLCKeyExtraction",
-          "match-dn": "*,gmlcId=#1,o=gmlc,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrGMLCIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-gmlc" ]
-        },
-        {
-          "map-name": "hlrNsrNBRTRANSLATIONKeyExtraction",
-          "match-dn": "*,nbrContextType=#1,o=nbrtranslation,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrNBRTRANSLATIONIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-nbrtranslation" ]
-        },
-        {
-          "map-name": "hlrNsrNBRRULESETKeyExtraction",
-          "match-dn": "*,nbrRuleSetName=#1,o=nbrruleset,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrNBRRULESETIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-nbrruleset" ]
-        },
-        {
-          "map-name": "hlrNsrNBRRULEKeyExtraction",
-          "match-dn": "*,nbrRuleName=#1,o=nbrrule,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrNBRRULEIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-nbrrule" ]
-        },
-        {
-          "map-name": "hlrNsrCSITREATMENTINFOKeyExtraction",
-          "match-dn": "*,treatmentName=#1,o=csitreatmentinfo,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrCSITREATMENTINFOIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-csitreatmentinfo" ]
-        },
-        {
-          "map-name": "hlrNsrPSTREATMENTINFOKeyExtraction",
-          "match-dn": "*,treatmentName=#1,o=pstreatmentinfo,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrPSTREATMENTINFOIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-pstreatmentinfo" ]
-        },
-        {
-          "map-name": "hlrNsrCATEGORYTREATMENTINFOKeyExtraction",
-          "match-dn": "*,treatmentName=#1,o=categorytreatmentinfo,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrCATEGORYTREATMENTINFOIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-categorytreatmentinfo" ]
-        },
-        {
-          "map-name": "hlrNsrROAMSUBSCRIPTIONINFOKeyExtraction",
-          "match-dn": "*,roamSubscriptionInfoName=#1,o=roamsubscriptioninfo,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrROAMSUBSCRIPTIONINFOIndexRule",
-          "document-space": "nsr",
-          "search-tag": "hlr-nsr-roamsubinfo-#1",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-roamsubscriptioninfo", "hlr-nsr-roamsubinfo-#1" ]
-        },
-        {
-          "map-name": "hlrNsrROAMPLANINFOKeyExtraction",
-          "match-dn": "*,entityNumber=#1,roamSubscriptionInfoName=#2,o=roamsubscriptioninfo,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrROAMPLANINFOIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-roamsubscriptioninfo", "hlr-nsr-roamsubinfo-#2" ]
-        },
-        {
-          "map-name": "hlrNsrEROAMPLANINFOKeyExtraction",
-          "match-dn": "*,roamPlanInfoId=#1,roamSubscriptionInfoName=#2,o=roamsubscriptioninfo,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrEROAMPLANINFOIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-roamsubscriptioninfo", "hlr-nsr-roamsubinfo-#2" ]
-        },
-        {
-          "map-name": "hlrNsrROAMPLANKeyExtraction",
-          "match-dn": "*,roamPlanName=#1,o=roamplan,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrROAMPLANIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-roamplan" ]
-        },
-        {
-          "map-name": "hlrNsrBSPLANKeyExtraction",
-          "match-dn": "*,bsPlanName=#1,o=bsplan,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrBSPLANIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-bsplan" ]
-        },
-        {
-          "map-name": "hlrNsrSSPLANKeyExtraction",
-          "match-dn": "*,ssPlanName=#1,o=ssplan,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrSSPLANIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-ssplan" ]
-        },
-        {
-          "map-name": "hlrNsrODBPLANKeyExtraction",
-          "match-dn": "*,odbPlanName=#1,o=odbplan,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrODBPLANIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-odbplan" ]
-        },
-        {
-          "map-name": "hlrNsrSERVICEPLANKeyExtraction",
-          "match-dn": "*,servicePlanName=#1,o=serviceplan,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrSERVICEPLANIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-serviceplan" ]
-        },
-        {
-          "map-name": "hlrNsrCSIPLANKeyExtraction",
-          "match-dn": "*,csiPlanName=#1,o=csiplan,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrCSIPLANIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-csiplan" ]
-        },
-        {
-          "map-name": "hlrNsrFRAUDPROFILEKeyExtraction",
-          "match-dn": "*,fraudProfileName=#1,o=fraudprofile,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrFRAUDPROFILEIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-fraudprofile" ]
-        },
-        {
-          "map-name": "hlrNsrFRAUDOBSERVATIONKeyExtraction",
-          "match-dn": "*,fraudObsName=#1,o=fraudobservation,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrFRAUDOBSERVATIONIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-fraudobservation" ]
-        },
-        {
-          "map-name": "hlrNsrPDNPLANKeyExtraction",
-          "match-dn": "*,pdnPlanName=#1,o=pdnPlan,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrPDNPLANIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-pdnPlan" ]
-        },
-        {
-          "map-name": "hlrNsrRESETTRIGGERINFOKeyExtraction",
-          "match-dn": "*,imsi=#1,o=resetTriggerInfo,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrRESETTRIGGERINFOIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-resetTriggerInfo" ]
-        },
-        {
-          "map-name": "hlrNsrHLRFTNODATAKeyExtraction",
-          "match-dn": "*,hlrFtnoDataName=#1,o=hlrftnodata,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrHLRFTNODATAIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-hlrftnodata" ]
-        },
-        {
-          "map-name": "hlrNsrHLRFTNOPROFILEKeyExtraction",
-          "match-dn": "*,hlrFtnoProfileName=#1,o=hlrftnoprofile,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrNsrHLRFTNOPROFILEIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-hlrftnoprofile" ]
+          "create-tags": [ "hss-nsr", "hss-nsr-hssCapacityCounters", "hss-nsr-hssCapacityCounters-#3" ]
         },
 		{
-          "map-name": "hlrNsrhssImeisvWildCardListKeyExtraction",
-          "match-dn": "*,hssImeisvWildCardListName=#1,o=hssImeisvWildCardList,o=hlr,o=nss,o=services,o=DEFAULT,dc=C-NTDB",
+          "map-name": "hssTempTriggersRootEntryKeyExtraction",
+          "match-dn": "*,o=hssTempTriggers,o=DEFAULT,dc=C-NTDB",
           "allow-document-creation": true,
-          "index-rule": "hlrNsrhssImeisvWildCardListIndexRule",
-          "document-space": "nsr",
-          "create-tags": [ "hlr-nsr", "hlr-nsr-hssImeisvWildCardList" ]
-        },
-		{
-          "map-name": "hlrCounterRootEntryKeyExtraction",
-          "match-dn": "o=counter,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": false,
-          "index-rule": "hlrCounterRootEntryIndexRule"
-        },
-		{
-          "map-name": "hlrDsHlrRootEntryKeyExtraction",
-          "match-dn": "ds=hlr,ds=GROUPS,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrDsHlrRootEntryIndexRule"
-        },
-		{
-          "map-name": "hlrDsIMSISWAPRootEntryKeyExtraction",
-          "match-dn": "ds=IMSISWAP,ds=GROUPS,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrDsIMSISWAPRootEntryIndexRule"
-        },
-		{
-          "map-name": "hlrSchedIMSISwapRootEntryKeyExtraction",
-          "match-dn": "ds=schedIMSISwap,ds=IMSISWAP,ds=GROUPS,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrSchedIMSISwapRootEntryIndexRule"
-        },
-		{
-          "map-name": "hlrCompIMSISwapRootEntryKeyExtraction",
-          "match-dn": "ds=compIMSISwap,ds=IMSISWAP,ds=GROUPS,o=DEFAULT,dc=C-NTDB",
-          "allow-document-creation": true,
-          "index-rule": "hlrCompIMSISwapRootEntryIndexRule"
+          "index-rule": "hssTempTriggersRootEntryIndexRule"
         }		
-      ],
-      "attr-adaptation-rules": [
-        {
-          "map-name": "hlrOmcIdEnabled",
-          "adapt-to-client": [ "hlrOmcId::omcId" ],
-          "adapt-to-server": [ "omcId::hlrOmcId" ]
-        }
       ]
     },
     "index-rules": [
-      {
-        "rule-name": "hlrGroupMsisdnIndexRule",
+	{
+        "rule-name": "hssNsrImsGifcDataIndexRule",
+        "key-components": [
+		 {
+            "key-pos": 1,
+            "key-attribute": "imsRefGlobalFilterID",
+            "key-object-class": [ "null" ]
+          },
+          {
+            "key-pos": 2,
+            "key-attribute": "profileName",
+            "key-object-class": [ "null" ]            
+          },
+          {
+            "key-pos": 3,
+            "key-namespace": "o=imsSharedServiceProfile,o=hss,o=nss,o=services"
+          }
+        ]
+      },
+	{
+        "rule-name": "hssNsrHssXmlSubSchemaIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "groupMsisdn",
-            "key-object-class": [ "MSSMULTISIMGROUP" ]
+            "key-attribute": "xmlSubSchemaId",
+            "key-object-class": [ "null" ]
+          },
+          {
+            "key-pos": 2,
+			"key-attribute": "xmlSchemaId",
+            "key-object-class": [ "null" ]            
+          },
+          {
+            "key-pos": 3,
+            "key-namespace": "o=hssXmlSchema,o=hss,o=nss,o=services"
           }
         ]
       },
 	  {
-        "rule-name": "hlrCounterRootEntryIndexRule",
+        "rule-name": "hssTempTriggersRootEntryIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-namespace": "o=counter"
-          }
-        ]
-      },	  
-	  {
-        "rule-name": "hlrDsHlrRootEntryIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-namespace": "ds=hlr,ds=GROUPS"
-          }
-        ]
-      },
-	  {
-        "rule-name": "hlrDsIMSISWAPRootEntryIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-namespace": "ds=IMSISWAP,ds=GROUPS"
-          }
-        ]
-      },
-	  {
-        "rule-name": "hlrSchedIMSISwapRootEntryIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-namespace": "ds=schedIMSISwap,ds=IMSISWAP,ds=GROUPS"
-          }
-        ]
-      },
-	  {
-        "rule-name": "hlrCompIMSISwapRootEntryIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-namespace": "ds=compIMSISwap,ds=IMSISWAP,ds=GROUPS"
+            "key-namespace": "o=hssTempTriggers"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrRootEntryIndexRule",
+        "rule-name": "hssNsrRootEntryIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-namespace": "o=hlr,o=nss,o=services"
+            "key-namespace": "o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrUpperNodeIndexRule",
+        "rule-name": "hssNsrUpperNodeIndexRule",
         "key-components": [
           {
             "key-pos": 1,
             "key-attribute": "o",
             "key-object-class": [ "null" ],
-            "key-namespace": "o=hlr,o=nss,o=services"
+            "key-namespace": "o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrDCSIIndexRule",
+        "rule-name": "hssNsrAsPermissionsIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "dCsiName",
-            "key-object-class": [ "D-CSI" ],
-            "key-namespace": "o=DCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "asHostName",
+            "key-object-class": [ "hssAsPermissions" ],
+            "key-namespace": "o=hssAsPermissions,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrSSCSIIndexRule",
+        "rule-name": "hssNsrGlobalFilterCriteriaIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "ssCsiName",
-            "key-object-class": [ "SS-CSI" ],
-            "key-namespace": "o=SSCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "filterName",
+            "key-object-class": [ "hssGlobalFilterCriteria" ],
+            "key-namespace": "o=hssGlobalFilterCriteria,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrMCSIIndexRule",
+        "rule-name": "hssNsrServiceIDsIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "mCsiName",
-            "key-object-class": [ "M-CSI" ],
-            "key-namespace": "o=MCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "serviceIndName",
+            "key-object-class": [ "hssServiceIDs" ],
+            "key-namespace": "o=hssServiceIDs,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrMGCSIIndexRule",
+        "rule-name": "hssNsrGroupImpuIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "mgCsiName",
-            "key-object-class": [ "MG-CSI" ],
-            "key-namespace": "o=MGCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "publicId",
+            "key-object-class": [ "hssGroupImpu" ],
+            "key-namespace": "o=hssGroupImpu,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrSCTRANSIndexRule",
+        "rule-name": "hssNsrXmlSchemaIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "sCodeOrFtno",
-            "key-object-class": [ "SHORTCODETRANSL" ],
-            "key-namespace": "o=SCODETRANSL,o=hlr,o=nss,o=services"
+            "key-attribute": "xmlSchemaId",
+            "key-object-class": [ "null" ]
+          },
+          {
+            "key-pos": 2,
+            "key-namespace": "o=hssXmlSchema,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrMSPIndexRule",
+        "rule-name": "hssNsrVisitedNetwListIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "mspName",
-            "key-object-class": [ "MSP" ],
-            "key-namespace": "o=MSP,o=hlr,o=nss,o=services"
+            "key-attribute": "netwListId",
+            "key-object-class": [ "hssVisitedNetwList" ],
+            "key-namespace": "o=hssVisitedNetwList,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrGPRSCSIIndexRule",
+        "rule-name": "hssNsrVisitedNetworksIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "gprsCsiName",
-            "key-object-class": [ "GPRS-CSI" ],
-            "key-namespace": "o=GPRSCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "visitedNetwDomain",
+            "key-object-class": [ "hssVisitedNetworks" ],
+            "key-namespace": "o=hssVisitedNetworks,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrSMSCSIIndexRule",
+        "rule-name": "hssNsrNafGroupIdsIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "smsCsiName",
-            "key-object-class": [ "SMS-CSI" ],
-            "key-namespace": "o=SMSCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "nafGroupName",
+            "key-object-class": [ "hssNafGroupIds" ],
+            "key-namespace": "o=hssNafGroupIds,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrVTCSIIndexRule",
+        "rule-name": "hssNsrCXRESTRICTIONVPLMNIDIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "vtCsiName",
-            "key-object-class": [ "VT-CSI" ],
-            "key-namespace": "o=VTCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "hssCxRestrictionVPLMNId",
+            "key-object-class": [ "hssCX-RESTRICTION-VPLMNID" ],
+            "key-namespace": "o=hssCX-RESTRICTION-VPLMNID,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrMTSMSCSIIndexRule",
+        "rule-name": "hssNsrImsAsSipAddressIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "mtsmsCsiName",
-            "key-object-class": [ "MTSMS-CSI" ],
-            "key-namespace": "o=MTSMSCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "imsAsSipAddressName",
+            "key-object-class": [ "imsAsSipAddress" ],
+            "key-namespace": "o=imsAsSipAddress,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrUGCSIIndexRule",
+        "rule-name": "hssNsrImsGlobalTriggerPointIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "ugShortcode",
-            "key-object-class": [ "UG-CSI" ],
-            "key-namespace": "o=UGCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "imsTriggerPointName",
+            "key-object-class": [ "imsGlobalTriggerPoint" ],
+            "key-namespace": "o=imsGlobalTriggerPoint,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrUGCSIExtIndexRule",
+        "rule-name": "hssNsrImsServiceIdListIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "ugShortcodeExt",
-            "key-object-class": [ "UG-CSI-Ext" ],
-            "key-namespace": "o=UGCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "imsServiceIdListName",
+            "key-object-class": [ "imsServiceIdList" ],
+            "key-namespace": "o=imsServiceIdList,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrLCSPROFIndexRule",
+        "rule-name": "hssNsrImsSharedRepositoryDataIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "lcsProfName",
-            "key-object-class": [ "LCSPROFILE" ],
-            "key-namespace": "o=LCSPROF,o=hlr,o=nss,o=services"
+            "key-attribute": "imsRepDataName",
+            "key-object-class": [ "imsSharedRepositoryData" ],
+            "key-namespace": "o=imsSharedRepositoryData,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrOCSIIndexRule",
+        "rule-name": "hssNsrImsSharedProfileIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "oCsiName",
-            "key-object-class": [ "O-CSI" ],
-            "key-namespace": "o=OCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "imsSupName",
+            "key-object-class": [ "imsSharedProfile" ],
+            "key-namespace": "o=imsSharedProfile,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrUCSIIndexRule",
+        "rule-name": "hssNsrImsSharedServiceProfileIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "nsrUCSIName",
-            "key-object-class": [ "NSR-U-CSI" ],
-            "key-namespace": "o=UCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "profileName",
+            "key-object-class": [ "null" ]
+          },
+          {
+            "key-pos": 2,
+            "key-namespace": "o=imsSharedServiceProfile,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrTCSIIndexRule",
+        "rule-name": "hssNsrWildcardIdentityIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "tCsiName",
-            "key-object-class": [ "T-CSI" ],
-            "key-namespace": "o=TCSI,o=hlr,o=nss,o=services"
+            "key-attribute": "imsDomainName",
+            "key-object-class": [ "imsDomain" ],
+            "key-namespace": "o=hssWildcardIdentity,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrBCASETIndexRule",
+        "rule-name": "hssNsrWildcardImpuIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "bcn",
-            "key-object-class": [ "BCASETINNSS" ],
-            "key-namespace": "o=BCASET,o=hlr,o=nss,o=services"
+            "key-attribute": "publicId",
+            "key-object-class": [ "null" ]
+          },
+          {
+            "key-pos": 2,
+            "key-attribute": "imsDomainName",
+            "key-object-class": [ "null" ]
+          },
+          {
+            "key-pos": 3,
+            "key-namespace": "o=hssWildcardIdentity,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrSUBRELROIndexRule",
+        "rule-name": "hssNsrHssCapacityCountersIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "subscrServ",
-            "key-object-class": [ "SUBRELRO" ],
-            "key-namespace": "o=SUBRELRO,o=hlr,o=nss,o=services"
+            "key-attribute": "hssCounterName",
+            "key-object-class": [ "null" ]
+          },
+        "key-components": [
+          {
+            "key-pos": 2,
+            "key-namespace": "o=hssCapacityCounters,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrQOFSERVIndexRule",
+        "rule-name": "hssNsrHssDatasetCountersIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "qOfServName",
-            "key-object-class": [ "QOFSERV" ],
-            "key-namespace": "o=QOSPROF,o=hlr,o=nss,o=services"
+            "key-attribute": "ds",
+            "key-object-class": [ "null" ]
+          },
+          {
+            "key-pos": 2,
+            "key-attribute": "hssCounterName",
+            "key-object-class": [ "null" ]
+          },
+          {
+            "key-pos": 3,
+            "key-namespace": "o=hssCapacityCounters,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrEOICKIndexRule",
+        "rule-name": "hssNsrHssGenericCountersIndexRule",
         "key-components": [
           {
             "key-pos": 1,
-            "key-attribute": "eoickName",
-            "key-object-class": [ "EOICK" ],
-            "key-namespace": "o=EOICK,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrEOINCIIndexRule",
-        "key-components": [
+            "key-attribute": "hssGenericCounterName",
+            "key-object-class": [ "null" ]
+          },
           {
-            "key-pos": 1,
-            "key-attribute": "eoinciName",
-            "key-object-class": [ "EOINCI" ],
-            "key-namespace": "o=EOINCI,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrOICKIndexRule",
-        "key-components": [
+            "key-pos": 2,
+            "key-attribute": "ds",
+            "key-object-class": [ "null" ]
+          },
           {
-            "key-pos": 1,
-            "key-attribute": "oickName",
-            "key-object-class": [ "OICK" ],
-            "key-namespace": "o=OICK,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrETICKIndexRule",
-        "key-components": [
+            "key-pos": 3,
+            "key-attribute": "hssCounterName",
+            "key-object-class": [ "null" ]
+          },
           {
-            "key-pos": 1,
-            "key-attribute": "etickName",
-            "key-object-class": [ "ETICK" ],
-            "key-namespace": "o=ETICK,o=hlr,o=nss,o=services"
+            "key-pos": 4,
+            "key-namespace": "o=hssCapacityCounters,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrETINCIIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "etinciName",
-            "key-object-class": [ "ETINCI" ],
-            "key-namespace": "o=ETINCI,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrTICKIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "tickName",
-            "key-object-class": [ "TICK" ],
-            "key-namespace": "o=TICK,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrVMSIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "ShortCode",
-            "key-object-class": [ "VMS" ],
-            "key-namespace": "o=VMS,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrROAMAREAIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "roamAreaName",
-            "key-object-class": [ "ROAM-AREA" ],
-            "key-namespace": "o=ROAMAREA,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrRESETINFOIndexRule",
+        "rule-name": "hssNsrResetInfoIndexRule",
         "key-components": [
           {
             "key-pos": 1,
@@ -987,2708 +628,1296 @@
           },
           {
             "key-pos": 2,
-            "key-namespace": "o=RESET-INFO,o=hlr,o=nss,o=services"
+            "key-namespace": "o=resetInfo,o=hss,o=nss,o=services"
           }
         ]
       },
       {
-        "rule-name": "hlrNsrDELETEINFOIndexRule",
+        "rule-name": "hssNsrDeleteInfoIndexRule",
         "key-components": [
           {
             "key-pos": 1,
             "key-attribute": "o",
             "key-object-class": [ "DELINFO" ],
-            "key-namespace": "o=DELETEINFO,o=hlr,o=nss,o=services"
+            "key-namespace": "o=DELETEINFO,o=hss,o=nss,o=services"
           }
         ]
-      },
-      {
-        "rule-name": "hlrNsrPROHIBFTNOIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "MSUBAttrFtno1",
-            "key-object-class": [ "PROHIBFTNO" ],
-            "key-namespace": "o=PROHIBFTNO,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrREGEXIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "regexName",
-            "key-object-class": [ "regularExpression" ],
-            "key-namespace": "o=REGEX,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrADVTIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "advtName",
-            "key-object-class": [ "ADVT" ],
-            "key-namespace": "o=ADVT,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrEMOICKIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "emoIckName",
-            "key-object-class": [ "EMO-ICK" ],
-            "key-namespace": "o=EMO-ICK,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrSSETIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "ssetName",
-            "key-object-class": [ "SSET" ],
-            "key-namespace": "o=SSET,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrPRIORITYLISTIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "priorityListName",
-            "key-object-class": [ "SMSPRIORITYLIST" ],
-            "key-namespace": "o=PRIORITYLIST,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrPDPCONTEXTIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "pdpContextName",
-            "key-object-class": [ "PDPCONTEXT" ],
-            "key-namespace": "o=PDPCONTEXT,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrADDRESSLISTIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "addressListName",
-            "key-object-class": [ "ADDRESSLIST" ],
-            "key-namespace": "o=ADDRESSLIST,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrINSMSIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "inSmsName",
-            "key-object-class": [ "PROP-IN-SMS" ],
-            "key-namespace": "o=INSMS,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrGMLCIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "gmlcId",
-            "key-object-class": [ "GMLC" ],
-            "key-namespace": "o=GMLC,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrNBRTRANSLATIONIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "nbrContextType",
-            "key-object-class": [ "NBRTRANSLATION" ],
-            "key-namespace": "o=NBRTRANSLATION,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrNBRRULESETIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "nbrRuleSetName",
-            "key-object-class": [ "NBRRULESET" ],
-            "key-namespace": "o=NBRRULESET,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrNBRRULEIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "nbrRuleName",
-            "key-object-class": [ "NBRRULE" ],
-            "key-namespace": "o=NBRRULE,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrCSITREATMENTINFOIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "treatmentName",
-            "key-object-class": [ "CSITREATMENTINFO" ],
-            "key-namespace": "o=CSITREATMENTINFO,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrPSTREATMENTINFOIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "treatmentName",
-            "key-object-class": [ "PSTREATMENTINFO" ],
-            "key-namespace": "o=PSTREATMENTINFO,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrCATEGORYTREATMENTINFOIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "treatmentName",
-            "key-object-class": [ "CATEGORYTREATMENTINFO" ],
-            "key-namespace": "o=CATEGORYTREATMENTINFO,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrROAMSUBSCRIPTIONINFOIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "roamSubscriptionInfoName",
-            "key-object-class": [ "null" ]
-          },
-          {
-            "key-pos": 2,
-            "key-namespace": "o=roamsubscriptioninfo,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrROAMPLANINFOIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "entityNumber",
-            "key-object-class": [ "null" ]
-          },
-          {
-            "key-pos": 2,
-            "key-attribute": "roamSubscriptionInfoName",
-            "key-object-class": [ "null" ]
-          },
-          {
-            "key-pos": 3,
-            "key-namespace": "o=roamsubscriptioninfo,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrEROAMPLANINFOIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "roamPlanInfoId",
-            "key-object-class": [ "null" ]
-          },
-          {
-            "key-pos": 2,
-            "key-attribute": "roamSubscriptionInfoName",
-            "key-object-class": [ "null" ]
-          },
-          {
-            "key-pos": 3,
-            "key-namespace": "o=roamsubscriptioninfo,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrROAMPLANIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "roamPlanName",
-            "key-object-class": [ "ROAMPLAN" ],
-            "key-namespace": "o=ROAMPLAN,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrBSPLANIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "bsPlanName",
-            "key-object-class": [ "BSPLAN" ],
-            "key-namespace": "o=BSPLAN,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrSSPLANIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "ssPlanName",
-            "key-object-class": [ "SSPLAN" ],
-            "key-namespace": "o=SSPLAN,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrODBPLANIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "odbPlanName",
-            "key-object-class": [ "ODBPLAN" ],
-            "key-namespace": "o=ODBPLAN,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrSERVICEPLANIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "servicePlanName",
-            "key-object-class": [ "SERVICEPLAN" ],
-            "key-namespace": "o=SERVICEPLAN,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrCSIPLANIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "csiPlanName",
-            "key-object-class": [ "CSIPLAN" ],
-            "key-namespace": "o=CSIPLAN,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrFRAUDPROFILEIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "fraudProfileName",
-            "key-object-class": [ "HLRFRAUDPROFILE" ],
-            "key-namespace": "o=FRAUDPROFILE,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrFRAUDOBSERVATIONIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "fraudObsName",
-            "key-object-class": [ "HLRFRAUDOBS" ],
-            "key-namespace": "o=FRAUDOBSERVATION,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrPDNPLANIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "pdnPlanName",
-            "key-object-class": [ "null" ]
-          },
-          {
-            "key-pos": 2,
-            "key-namespace": "o=pdnPlan,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrRESETTRIGGERINFOIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "imsi",
-            "key-object-class": [ "null" ]
-          },
-          {
-            "key-pos": 2,
-            "key-namespace": "o=resetTriggerInfo,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrHLRFTNODATAIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "hlrFtnoDataName",
-            "key-object-class": [ "HLRFTNODATA" ],
-            "key-namespace": "o=hlrftnodata,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-      {
-        "rule-name": "hlrNsrHLRFTNOPROFILEIndexRule",
-        "key-components": [
-          {
-            "key-pos": 1,
-            "key-attribute": "hlrFtnoProfileName",
-            "key-object-class": [ "HLRFTNOPROFILE" ],
-            "key-namespace": "o=hlrftnoprofile,o=hlr,o=nss,o=services"
-          }
-        ]
-      },
-	  {
-	        "rule-name": "hlrNsrhssImeisvWildCardListIndexRule",
-	        "key-components": [
-	          {
-	            "key-pos": 1,
-	            "key-attribute": "hssImeisvWildCardListName",
-	            "key-object-class": [ "hssImeisvWildCardList" ],
-	            "key-namespace": "o=hssImeisvWildCardList,o=hlr,o=nss,o=services"
-	          }
-	        ]
-      	}
+      }      
     ],
     "trigger-rules": {
-      "trigger-rule": [
-        {
-          "trig-name": "SUBINNSS-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "modify", "add" ],
-          "cond-object-class": "SUBINNSS",
-          "actions": [ "SUBINNSS-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "MSISDNINNSS-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "MSISDNINNSS",
-          "actions": [ "MSISDNINNSS-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SSINNSSPARAM-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SSINNSSPARAM",
-          "actions": [ "SSINNSSPARAM-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SSINNSSCUG-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SSINNSSCUG",
-          "actions": [ "SSINNSSCUG-Att-DEFAULT-Action" ]
-        },
-		{
-          "trig-name": "hssOrderOfSelection-Hlr-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "hssOrderOfSelection",
-          "actions": [ "hssOrderOfSelection-Hlr-Obj-DEFAULT-Action" ]
-        },
-		{
-          "trig-name": "hssImeisvWildCardList-HLR-Obj-DEFAULT",
-		  "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "hssImeisvWildCardList",
-          "actions": [ "hssImeisvWildCardList-HLR-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "LATEFEAT-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "LATEFEAT",
-          "actions": [ "LATEFEAT-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "GPRSDATA-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "GPRSDATA",
-          "actions": [ "GPRSDATA-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "CUGPARAM-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "CUGPARAM",
-          "actions": [ "CUGPARAM-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "RSZILISTINNSS-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "RSZILISTINNSS",
-          "actions": [ "RSZILISTINNSS-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "VBSDATA-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "VBSDATA",
-          "actions": [ "VBSDATA-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "RESET-INFO-Att-DEFAULT",
-          "cond-attr-filter": "(sendReset=*)",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "RESET-INFO",
-          "actions": [ "RESET-INFO-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "O-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "O-CSI",
-          "actions": [ "O-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "T-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "T-CSI",
-          "actions": [ "T-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "NSR-U-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NSR-U-CSI",
-          "actions": [ "NSR-U-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "BCASETINNSS-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "BCASETINNSS",
-          "actions": [ "BCASETINNSS-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SUBRELRO-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SUBRELRO",
-          "actions": [ "SUBRELRO-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "QOFSERV-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "QOFSERV",
-          "actions": [ "QOFSERV-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "ROAM-AREA-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ROAM-AREA",
-          "actions": [ "ROAM-AREA-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "UG-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "UG-CSI",
-          "actions": [ "UG-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "MSP-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "MSP",
-          "actions": [ "MSP-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "GPRS-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "GPRS-CSI",
-          "actions": [ "GPRS-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "M-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "M-CSI",
-          "actions": [ "M-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SMS-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SMS-CSI",
-          "actions": [ "SMS-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "VT-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "VT-CSI",
-          "actions": [ "VT-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "MG-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "MG-CSI",
-          "actions": [ "MG-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SS-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SS-CSI",
-          "actions": [ "SS-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "D-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "D-CSI",
-          "actions": [ "D-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "LCSPROFILE-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "LCSPROFILE",
-          "actions": [ "LCSPROFILE-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "PROHIBFTNO-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "PROHIBFTNO",
-          "actions": [ "PROHIBFTNO-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "VMS-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "VMS",
-          "actions": [ "VMS-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "MTSMS-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "MTSMS-CSI",
-          "actions": [ "MTSMS-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SHORTCODETRANSL-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SHORTCODETRANSL",
-          "actions": [ "SHORTCODETRANSL-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "OICK-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "OICK",
-          "actions": [ "OICK-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "TICK-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TICK",
-          "actions": [ "TICK-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "EOICK-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "EOICK",
-          "actions": [ "EOICK-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "EOINCI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "EOINCI",
-          "actions": [ "EOINCI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "ETICK-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ETICK",
-          "actions": [ "ETICK-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "ETINCI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ETINCI",
-          "actions": [ "ETINCI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "regularExpression-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "regularExpression",
-          "actions": [ "regularExpression-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "TDPDATA-O-CSI-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-O-CSI",
-          "actions": [ "TDPDATA-O-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "TDPDATA-T-CSI-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-T-CSI",
-          "actions": [ "TDPDATA-T-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "TDPDATA-GPRS-CSI-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-GPRS-CSI",
-          "actions": [ "TDPDATA-GPRS-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "TDPDATA-SMS-CSI-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-SMS-CSI",
-          "actions": [ "TDPDATA-SMS-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "TDPDATA-VT-CSI-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-VT-CSI",
-          "actions": [ "TDPDATA-VT-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "TDPDATA-MTSMS-CSI-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-MTSMS-CSI",
-          "actions": [ "TDPDATA-MTSMS-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "U-CSI-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "U-CSI",
-          "actions": [ "U-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "TDPDATA-D-CSI-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDP3",
-          "actions": [ "TDPDATA-D-CSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "CHANGEOVER-Att-HLR",
-          "cond-operation": [ "modify" ],
-          "cond-object-class": "CHANGEOVER",
-          "cond-attr-filter": "(&(pgwChangeoverTrigger:dsTrigAttrChangeMatch:=modify)(pgwChangeoverTrigger:dsTrigNewMatch:=TRUE))",
-          "actions": [ "CHANGEOVER-Att-HLR-Action" ]
-        },
-        {
-          "trig-name": "CHANGEOVEREND-Att-HLR",
-          "cond-operation": [ "delete" ],
-          "actions": [ "CHANGEOVEREND-Att-HLR-Action" ],
-          "cond-object-class": "CHANGEOVEREND"
-        },
-        {
-          "trig-name": "IRT-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "IRT",
-          "actions": [ "IRT-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "LI-IMSI-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "add" ],
-          "cond-object-class": "LI-IMSI",
-          "actions": [ "LI-IMSI-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "LI-MSISDN-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "add" ],
-          "cond-object-class": "LI-MSISDN",
-          "actions": [ "LI-MSISDN-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SUBINNSS-AttDEL-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete" ],
-          "cond-object-class": "SUBINNSS",
-          "actions": [ "SUBINNSS-AttDEL-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "MULTISIM-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "MULTISIM",
-          "actions": [ "MULTISIM-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "ADVT-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ADVT",
-          "actions": [ "ADVT-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "U-CSI-Ext-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "U-CSI-Ext",
-          "actions": [ "U-CSI-Ext-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "UG-CSI-Ext-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "UG-CSI-Ext",
-          "actions": [ "UG-CSI-Ext-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "ROAMSUBSCRIPTIONINFO-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ROAMSUBSCRIPTIONINFO",
-          "actions": [ "ROAMSUBSCRIPTIONINFO-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "ROAMPLANINFO-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ROAMPLANINFO",
-          "actions": [ "ROAMPLANINFO-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "ROAMPLAN-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ROAMPLAN",
-          "actions": [ "ROAMPLAN-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "BSPLAN-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "BSPLAN",
-          "actions": [ "BSPLAN-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SSPLAN-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SSPLAN",
-          "actions": [ "SSPLAN-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "CSIPLAN-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "CSIPLAN",
-          "actions": [ "CSIPLAN-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "ODBPLAN-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ODBPLAN",
-          "actions": [ "ODBPLAN-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "CHANGEOVER-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete" ],
-          "cond-object-class": "CHANGEOVER",
-          "actions": [ "CHANGEOVER-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "MSSMULTISIMGROUP-Att-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "MSSMULTISIMGROUP",
-          "actions": [ "MSSMULTISIMGROUP-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "GMLC-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "GMLC",
-          "actions": [ "GMLC-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "PROP-IN-SMS-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "PROP-IN-SMS",
-          "actions": [ "PROP-IN-SMS-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "ADDRESSLIST-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ADDRESSLIST",
-          "actions": [ "ADDRESSLIST-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SMSPRIORITYLIST-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SMSPRIORITYLIST",
-          "actions": [ "SMSPRIORITYLIST-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SMSFEATURE-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SMSFEATURE",
-          "actions": [ "SMSFEATURE-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SSET-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SSET",
-          "actions": [ "SSET-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "EMOICK-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "EMO-ICK",
-          "actions": [ "EMOICK-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "NBRTRANSLATION-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NBRTRANSLATION",
-          "actions": [ "NBRTRANSLATION-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "NBRTRANSLATIONINFO-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NBRTRANSLATIONINFO",
-          "actions": [ "NBRTRANSLATIONINFO-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "NBRRULESET-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NBRRULESET",
-          "actions": [ "NBRRULESET-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "NBRRULE-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NBRRULE",
-          "actions": [ "NBRRULE-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "NBRRULEACTION-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NBRRULEACTION",
-          "actions": [ "NBRRULEACTION-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "NEXTRULESTEP-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NEXTRULESTEP",
-          "actions": [ "NEXTRULESTEP-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "DEFTOKENLIST-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "DEFTOKENLIST",
-          "actions": [ "DEFTOKENLIST-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "TOKENSETCRITERIA-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TOKENSETCRITERIA",
-          "actions": [ "TOKENSETCRITERIA-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "HLR-EPSDATA-Att-DEFAULT",
-          "cond-attr-filter": "(sessionTransNum=*)",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "EPSDATA",
-          "actions": [ "HLR-EPSDATA-Att-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "CSITREATMENTINFO-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "CSITREATMENTINFO",
-          "actions": [ "CSITREATMENTINFO-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "PSTREATMENTINFO-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "PSTREATMENTINFO",
-          "actions": [ "PSTREATMENTINFO-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SERVICEPLAN-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SERVICEPLAN",
-          "actions": [ "SERVICEPLAN-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "CATEGORYTREATMENTINFO-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "CATEGORYTREATMENTINFO",
-          "actions": [ "CATEGORYTREATMENTINFO-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "PDPCONTEXT-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "PDPCONTEXT",
-          "actions": [ "PDPCONTEXT-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "HLRFRAUDPROFILE-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "HLRFRAUDPROFILE",
-          "actions": [ "HLRFRAUDPROFILE-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "HLRFRAUDOBS-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "HLRFRAUDOBS",
-          "actions": [ "HLRFRAUDOBS-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "GSMTRACINGPROFILE-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "GSMTRACINGPROFILE",
-          "actions": [ "GSMTRACINGPROFILE-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "SUPPSERVICES-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SUPPSERVICES",
-          "actions": [ "SUPPSERVICES-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "BASICSERVINNSS-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "BASICSERVINNSS",
-          "actions": [ "BASICSERVINNSS-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "HLRFTNOPROFILE-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "HLRFTNOPROFILE",
-          "actions": [ "HLRFTNOPROFILE-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "HLRFTNODATA-Obj-DEFAULT",
-          "cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "HLRFTNODATA",
-          "actions": [ "HLRFTNODATA-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "HLRROAMAREALIST-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "HLRROAMAREALIST",
-          "actions": [ "HLRROAMAREALIST-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "LCSCLIENT-Obj-DEFAULT",
-          "cond-dn": "*,o=DEFAULT,dc=C-NTDB",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "LCSCLIENT",
-          "actions": [ "LCSCLIENT-Obj-DEFAULT-Action" ]
-        },
-        {
-          "trig-name": "ocsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "O-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tdpocsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-O-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tcsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "T-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tdptcsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-T-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "nsrucsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NSR-U-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "ucsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "U-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "bcasetTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "BCASETINNSS",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "subrelroTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SUBRELRO",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "qosprofTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "QOFSERV",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "roamareaTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ROAM-AREA",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "ugcsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "UG-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "mspTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "MSP",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "gprscsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "GPRS-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tdpgrpscsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-GPRS-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "mcsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "M-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "smscsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SMS-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tdpsmscsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-SMS-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "vtcsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "VT-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tdpvtcsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-VT-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "mgcsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "MG-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "sscsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SS-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "dcsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "D-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tdpdcsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDP3",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tpd3Trig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDP3",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "lcsprofTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "LCSPROFILE",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "lcsclientTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "LCSCLIENT",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "prohibftnoTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "PROHIBFTNO",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "vmsTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "VMS",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "mtsmscsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "MTSMS-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tdpmtsmscsiTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TDPDATA-MTSMS-CSI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "oick",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "OICK",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tick",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TICK",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "eoick",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "EOICK",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "etick",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ETICK",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "eoinci",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "EOINCI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "etinci",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ETINCI",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "ussdAdvt",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ADVT",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "ucsiextTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "U-CSI-Ext",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "ugcsiextTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "UG-CSI-Ext",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "roamSubInfoTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ROAMSUBSCRIPTIONINFO",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "roamPlanTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ROAMPLAN",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "bsPlanTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "BSPLAN",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "ssPlanTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SSPLAN",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "odbPlanTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ODBPLAN",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "csiPlanTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "CSIPLAN",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "gmlcTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "GMLC",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "propInSmsInfoTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "PROP-IN-SMS",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "addressListTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "ADDRESSLIST",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "smsPriorityListTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SMSPRIORITYLIST",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "ssetTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SSET",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "ruleSetTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NBRRULESET",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "ruleTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NBRRULE",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "emoickTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "EMO-ICK",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "categoryTreatmentInfoTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "CATEGORYTREATMENTINFO",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "csiTreatmentInfoTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "CSITREATMENTINFO",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "psTreatmentInfoTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "PSTREATMENTINFO",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "servicePlanTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "SERVICEPLAN",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "pdpContextTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "PDPCONTEXT",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "hlrfraudprofileTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "HLRFRAUDPROFILE",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "translationTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NBRTRANSLATION",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "translationInfoTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NBRTRANSLATIONINFO",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "ruleActionTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NBRRULEACTION",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "nextRuleStepTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "NEXTRULESTEP",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "defTokenListTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "DEFTOKENLIST",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "tokenSetCriteriaTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "TOKENSETCRITERIA",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "hlrFtnoProfileTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "HLRFTNOPROFILE",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "hlrFtnoDataTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "HLRFTNODATA",
-          "actions": [ "PGWNotify" ]
-        },
-        {
-          "trig-name": "hlrRoamAreaListTrig",
-          "cond-operation": [ "delete", "modify", "add" ],
-          "cond-object-class": "HLRROAMAREALIST",
-          "actions": [ "PGWNotify" ]
-        }
-      ],
-      "trigger-action": [
-        {
-          "action-name": "SUBINNSS-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "MSISDNINNSS-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "SSINNSSPARAM-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "SSINNSSCUG-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-		{
-          "action-name": "hssOrderOfSelection-Hlr-Obj-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "LATEFEAT-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "GPRSDATA-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "CUGPARAM-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "RSZILISTINNSS-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "VBSDATA-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "RESET-INFO-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "sendReset" ]
-        },
-        {
-          "action-name": "O-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-		{
-          "action-name": "hssImeisvWildCardList-HLR-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "T-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "NSR-U-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "BCASETINNSS-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "SUBRELRO-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "QOFSERV-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "ROAM-AREA-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "UG-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "MSP-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "GPRS-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "M-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "SMS-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "VT-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "MG-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "SS-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "D-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "LCSPROFILE-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "PROHIBFTNO-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "VMS-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "MTSMS-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "SHORTCODETRANSL-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "OICK-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "TICK-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "EOICK-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "EOINCI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "ETICK-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "ETINCI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "regularExpression-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "TDPDATA-O-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "TDPDATA-T-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "TDPDATA-GPRS-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "TDPDATA-SMS-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "TDPDATA-VT-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "TDPDATA-MTSMS-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "U-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "TDPDATA-D-CSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "ADVT-Att-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "U-CSI-Ext-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "UG-CSI-Ext-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "ROAMSUBSCRIPTIONINFO-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "ROAMPLANINFO-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "ROAMPLAN-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "BSPLAN-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "SSPLAN-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "CSIPLAN-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "ODBPLAN-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "GMLC-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "PROP-IN-SMS-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "ADDRESSLIST-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "SMSPRIORITYLIST-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "SMSFEATURE-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "SSET-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "EMOICK-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "NBRTRANSLATION-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "NBRTRANSLATIONINFO-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "NBRRULESET-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "NBRRULE-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "NBRRULEACTION-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "NEXTRULESTEP-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "DEFTOKENLIST-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "TOKENSETCRITERIA-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "CSITREATMENTINFO-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "PSTREATMENTINFO-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "SERVICEPLAN-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "CATEGORYTREATMENTINFO-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "PDPCONTEXT-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "HLRFRAUDPROFILE-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "HLRFRAUDOBS-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "LCSCLIENT-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "HLRROAMAREALIST-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT"
-        },
-        {
-          "action-name": "HLRFTNOPROFILE-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "HLRFTNODATA-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "SUBINNSS-AttDEL-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEL-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "CHANGEOVER-Obj-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEL-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "HLR-EPSDATA-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "MULTISIM-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "MSSMULTISIMGROUP-Att-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "SUPPSERVICES-Obj-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "BASICSERVINNSS-Obj-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "GSMTRACINGPROFILE-Obj-DEFAULT-Action",
-          "notif-service": "HLR-RR-DEFAULT",
-          "attributes": [ "+" ],
-          "attr-mappings": [ "hlrOmcId::omcId" ]
-        },
-        {
-          "action-name": "CHANGEOVER-Att-HLR-Action",
-          "notif-service": "PGW-CHG-OVR-SERVICE",
-          "attributes": [ "newIMSI", "oldIMSI" ]
-        },
-        {
-          "action-name": "CHANGEOVEREND-Att-HLR-Action",
-          "notif-service": "CRM-CHG-OVR-SERVICE",
-          "attributes": [ "newIMSI", "oldIMSI" ]
-        },
-        {
-          "action-name": "IRT-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "LI-IMSI-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT",
-          "attributes": [ "+" ]
-        },
-        {
-          "action-name": "LI-MSISDN-Obj-DEFAULT-Action",
-          "notif-service": "HLR-BC-DEFAULT",
-          "attributes": [ "+" ]
-        }
-      ]
-    },
+			"trigger-rule": [
+				{
+					"trig-name": "hssVisitedNetwList-Obj-DEFAULT",
+					"cond-object-class": "hssVisitedNetwList",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssVisitedNetwList-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "imsSharedRepositoryData-Obj-DEFAULT",
+					"cond-object-class": "imsSharedRepositoryData",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsSharedRepositoryData-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssTriggerRTR-Obj-DEFAULT",
+					"cond-object-class": "hssTriggerRTR",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssTriggerRTR-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-imsServiceIdList-Obj-DEFAULT",
+					"cond-object-class": "imsServiceIdList",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "imsExtendedPriority-Obj-DEFAULT",
+					"cond-object-class": "imsExtendedPriority",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsExtendedPriority-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-hssVisitedNetworks-Obj",
+					"cond-object-class": "hssVisitedNetworks",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "hssIrs-Obj-DEFAULT",
+					"cond-object-class": "hssIrs",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssIrs-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "HSS-RR-LI-IMSI-Obj-DEFAULT",
+					"cond-object-class": "LI-IMSI",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"HSS-RR-LI-IMSI-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "imsGifcReplacement-Obj-DEFAULT",
+					"cond-object-class": "imsGifcReplacement",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsGifcReplacement-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-hssServiceIDs-Obj",
+					"cond-object-class": "hssServiceIDs",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "c-hssVisitedNetworks-Obj-DEFAULT",
+					"cond-object-class": "hssVisitedNetworks",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "hssImpu-Obj-DEFAULT",
+					"cond-object-class": "hssImpu",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssImpu-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "HSS-LI-MSISDN-Obj-DEFAULT",
+					"cond-object-class": "LI-MSISDN",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"HSS-LI-MSISDN-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "imsRefLocInfo-Obj-DEFAULT",
+					"cond-object-class": "imsRefLocInfo",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsRefLocInfo-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssAsPermissions-Obj-DEFAULT",
+					"cond-object-class": "hssAsPermissions",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssAsPermissions-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssGlobalFilterCriteria-Obj-DEFAULT",
+					"cond-object-class": "hssGlobalFilterCriteria",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssGlobalFilterCriteria-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "HSS-LI-IMPU-Obj-DEFAULT",
+					"cond-object-class": "LI-IMPU",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"HSS-LI-IMPU-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssCX-RESTRICTION-VPLMNID-Obj-DEFAULT",
+					"cond-object-class": "hssCX-RESTRICTION-VPLMNID",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssCX-RESTRICTION-VPLMNID-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-imsSharedRepositoryData-Obj",
+					"cond-object-class": "imsSharedRepositoryData",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "c-hssCX-RESTRICTION-VPLMNID-Obj",
+					"cond-object-class": "hssCX-RESTRICTION-VPLMNID",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "cmActivation-hsssubinnss-Att-DEFAULT",
+					"cond-object-class": "SUBINNSS",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(cmActivation=*)",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"cmActivation-hsssubinnss-Att-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-hssNafGroupIds-Obj",
+					"cond-object-class": "hssNafGroupIds",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "HSS-LI-IMSI-Obj-DEFAULT",
+					"cond-object-class": "LI-IMSI",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"HSS-LI-IMSI-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-hssXmlSchema-Obj-DEFAULT",
+					"cond-object-class": "hssXmlSchema",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "hssImpi-Obj-DEFAULT",
+					"cond-object-class": "hssImpi",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssImpi-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "HSS-RR-LI-IMPU-Obj-DEFAULT",
+					"cond-object-class": "LI-IMPU",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"HSS-RR-LI-IMPU-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "imsServiceIdList-Obj-DEFAULT",
+					"cond-object-class": "imsServiceIdList",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsServiceIdList-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssServiceProfile-Obj-DEFAULT",
+					"cond-object-class": "hssServiceProfile",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssServiceProfile-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssAliasRepData-Obj-DEFAULT",
+					"cond-object-class": "hssAliasRepData",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssAliasRepData-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssAliasGroup-Obj-DEFAULT",
+					"cond-object-class": "hssAliasGroup",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssAliasGroup-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssGroupImpu-Obj-DEFAULT",
+					"cond-object-class": "hssGroupImpu",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssGroupImpu-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-imsSharedImpu-Obj",
+					"cond-object-class": "imsSharedImpu",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "imsGifcData-Obj-DEFAULT",
+					"cond-object-class": "imsGifcData",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsGifcData-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-imsSharedImpu-Obj-DEFAULT",
+					"cond-object-class": "imsSharedImpu",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "hssUserFilterCriteria-Obj-DEFAULT",
+					"cond-object-class": "hssUserFilterCriteria",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssUserFilterCriteria-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-hssCX-RESTRICTION-VPLMNID-Obj-DEFAULT",
+					"cond-object-class": "hssCX-RESTRICTION-VPLMNID",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "c-hssNafGroupIds-Obj-DEFAULT",
+					"cond-object-class": "hssNafGroupIds",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "c-imsSharedProfile-Obj-DEFAULT",
+					"cond-object-class": "imsSharedProfile",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "hssSubscription-Att-DEFAULT",
+					"cond-object-class": "hssSubscription",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssSubscription-Att-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-imsSharedProfile-Obj",
+					"cond-object-class": "imsSharedProfile",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "hssServiceIDs-Obj-DEFAULT",
+					"cond-object-class": "hssServiceIDs",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssServiceIDs-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-imsSharedServiceProfile-Obj-DEFAULT",
+					"cond-object-class": "imsSharedServiceProfile",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "hssWildcardImpu-Obj-DEFAULT",
+					"cond-object-class": "hssWildcardImpu",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssWildcardImpu-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "imsSharedProfile-Obj-DEFAULT",
+					"cond-object-class": "imsSharedProfile",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsSharedProfile-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-hssXmlSchema-Obj",
+					"cond-object-class": "hssXmlSchema",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "HSS-IRT-Obj-DEFAULT",
+					"cond-object-class": "IRT",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"HSS-IRT-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssNotification-Obj-DEFAULT",
+					"cond-object-class": "hssNotification",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"delete"
+					],
+					"actions": [
+						"hssNotification-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssTriggerPPR-Obj-DEFAULT",
+					"cond-object-class": "hssTriggerPPR",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssTriggerPPR-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "HSS-RR-LI-MSISDN-Obj-DEFAULT",
+					"cond-object-class": "LI-MSISDN",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"HSS-RR-LI-MSISDN-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "hssRepositoryData-Obj-DEFAULT",
+					"cond-object-class": "hssRepositoryData",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"hssRepositoryData-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "imsSharedServiceProfile-Obj-DEFAULT",
+					"cond-object-class": "imsSharedServiceProfile",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsSharedServiceProfile-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "SEQNUM-imsDomain-Att-DEFAULT",
+					"cond-object-class": "imsDomain",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(SEQNUM=*)",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"SEQNUM-imsDomain-Att-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "imsAsSipAddress-Obj-DEFAULT",
+					"cond-object-class": "imsAsSipAddress",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsAsSipAddress-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "imsSharedImpu-Obj-DEFAULT",
+					"cond-object-class": "imsSharedImpu",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsSharedImpu-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "imsGlobalTriggerPoint-Obj-DEFAULT",
+					"cond-object-class": "imsGlobalTriggerPoint",
+					"cond-dn": "*,o=DEFAULT,dc=C-NTDB",
+					"cond-attr-filter": "(!(&(refStatus=*)(refStatus:dsTrigAttrChangeMatch:=add)))",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"imsGlobalTriggerPoint-Obj-DEFAULT-Action"
+					]
+				},
+				{
+					"trig-name": "c-hssGlobalFilterCriteria-Obj",
+					"cond-object-class": "hssGlobalFilterCriteria",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "c-imsSharedServiceProfile-Obj",
+					"cond-object-class": "imsSharedServiceProfile",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "c-imsSharedRepositoryData-Obj-DEFAULT",
+					"cond-object-class": "imsSharedRepositoryData",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				},
+				{
+					"trig-name": "c-imsServiceIdList-Obj",
+					"cond-object-class": "imsServiceIdList",
+					"cond-operation": [
+						"add",
+						"modify",
+						"delete"
+					],
+					"actions": [
+						"PGWNotify"
+					]
+				}
+			],
+			"trigger-action": [
+				{
+					"action-name": "imsGlobalTriggerPoint-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssWildcardImpu-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "imsExtendedPriority-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssIrs-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "HSS-IRT-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssAsPermissions-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT"
+				},
+				{
+					"action-name": "hssGlobalFilterCriteria-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT"
+				},
+				{
+					"action-name": "imsSharedProfile-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "HSS-LI-IMSI-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "imsGifcData-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssAliasRepData-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssRepositoryData-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "HSS-LI-IMPU-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssTriggerPPR-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "cmActivation-hsssubinnss-Att-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"cmActivation"
+					]
+				},
+				{
+					"action-name": "imsServiceIdList-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssGroupImpu-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "SEQNUM-imsDomain-Att-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"SEQNUM"
+					]
+				},
+				{
+					"action-name": "HSS-RR-LI-IMPU-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssImpi-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssServiceProfile-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssVisitedNetwList-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT"
+				},
+				{
+					"action-name": "hssAliasGroup-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "HSS-RR-LI-IMSI-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssTriggerRTR-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "imsAsSipAddress-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssNotification-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssServiceIDs-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT"
+				},
+				{
+					"action-name": "imsSharedImpu-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssCX-RESTRICTION-VPLMNID-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssImpu-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssUserFilterCriteria-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "imsRefLocInfo-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "HSS-RR-LI-MSISDN-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "imsSharedServiceProfile-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "imsGifcReplacement-Obj-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "hssSubscription-Att-DEFAULT-Action",
+					"notif-service": "HSS-RR-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "HSS-LI-MSISDN-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				},
+				{
+					"action-name": "imsSharedRepositoryData-Obj-DEFAULT-Action",
+					"notif-service": "HSS-BC-DEFAULT",
+					"attributes": [
+						"+"
+					]
+				}
+			]
+		},
     "qos-profiles": [
       {
-        "qos-profile-name": "hlrQosProfile",
-        "qos-level": 7,
-        "qos-map": [
-          "Highest|9",
-          "High|8",
-          "Medium|7",
-          "Low|6",
-          "Lowest|5"
-        ],
+        "qos-profile-name": "hssQosProfile",
+        "qos-level": 6,
+        "qos-map": [ 
+          "HSSPrio1|4", 
+          "HSSPrio2|4",
+          "HSSPrio3|4",
+          "HSSPrio4|5",
+          "HSSPrio5|5",
+          "HSSPrio6|5",
+          "HSSPrio7|6",
+          "HSSPrio8|6",
+          "HSSPrio9|6",
+          "HSSPrio10|6",
+          "HSSSubSeq|7",
+          "HSSSOAP|5" ],
         "qos-busy-behaviour": "returnBusy"
       }
     ],
- "user-profiles": [
+    "user-profiles": [
       {
-        "user-profile-name": "hlrUserProfile",
-        "default-users": [ "HlrUser" ],
-        "qos-profile": "hlrQosProfile",
+        "user-profile-name": "hssUserProfile",
+        "default-users": [ "HssUser" ],
+        "qos-profile": "hssQosProfile",
         "adapt-name-rules": [
           "commonUidKeyExtraction",
-          "hlrWithMsisdnToImsi",
-          "hlrWithImsiToImsi",
-          "hlrGroupMsisdnKeyExtraction",
-          "hlrGroupMsisdnAliasKeyExtraction",
-          "hlrNsrRootEntryKeyExtraction",
-          "hlrNsrUpperNodeKeyExtraction",
-          "hlrNsrDCSIKeyExtraction",
-          "hlrNsrSSCSIKeyExtraction",
-          "hlrNsrMCSIKeyExtraction",
-          "hlrNsrMGCSIKeyExtraction",
-          "hlrNsrSCTRANSKeyExtraction",
-          "hlrNsrMSPKeyExtraction",
-          "hlrNsrGPRSCSIKeyExtraction",
-          "hlrNsrSMSCSIKeyExtraction",
-          "hlrNsrVTCSIKeyExtraction",
-          "hlrNsrMTSMSCSIKeyExtraction",
-          "hlrNsrUGCSIKeyExtraction",
-          "hlrNsrUGCSIExtKeyExtraction",
-          "hlrNsrLCSPROFKeyExtraction",
-          "hlrNsrOCSIKeyExtraction",
-          "hlrNsrUCSIKeyExtraction",
-          "hlrNsrTCSIKeyExtraction",
-          "hlrNsrBCASETKeyExtraction",
-          "hlrNsrSUBRELROKeyExtraction",
-          "hlrNsrQOFSERVKeyExtraction",
-          "hlrNsrEOICKKeyExtraction",
-          "hlrNsrEOINCIKeyExtraction",
-          "hlrNsrOICKKeyExtraction",
-          "hlrNsrETICKKeyExtraction",
-          "hlrNsrETINCIKeyExtraction",
-          "hlrNsrTICKKeyExtraction",
-          "hlrNsrVMSKeyExtraction",
-          "hlrNsrROAMAREAKeyExtraction",
-          "hlrNsrRESETINFOKeyExtraction",
-          "hlrNsrDELETEINFOKeyExtraction",
-          "hlrNsrPROHIBFTNOKeyExtraction",
-          "hlrNsrREGEXKeyExtraction",
-          "hlrNsrADVTKeyExtraction",
-          "hlrNsrEMOICKKeyExtraction",
-		  "hlrNsrhssImeisvWildCardListKeyExtraction",
-          "hlrNsrSSETKeyExtraction",
-          "hlrNsrPRIORITYLISTKeyExtraction",
-          "hlrNsrPDPCONTEXTKeyExtraction",
-          "hlrNsrADDRESSLISTKeyExtraction",
-          "hlrNsrINSMSKeyExtraction",
-          "hlrNsrGMLCKeyExtraction",
-          "hlrNsrNBRTRANSLATIONKeyExtraction",
-          "hlrNsrNBRRULESETKeyExtraction",
-          "hlrNsrNBRRULEKeyExtraction",
-          "hlrNsrCSITREATMENTINFOKeyExtraction",
-          "hlrNsrPSTREATMENTINFOKeyExtraction",
-          "hlrNsrCATEGORYTREATMENTINFOKeyExtraction",
-          "hlrNsrROAMSUBSCRIPTIONINFOKeyExtraction",
-          "hlrNsrROAMPLANINFOKeyExtraction",
-          "hlrNsrEROAMPLANINFOKeyExtraction",
-          "hlrNsrROAMPLANKeyExtraction",
-          "hlrNsrBSPLANKeyExtraction",
-          "hlrNsrSSPLANKeyExtraction",
-          "hlrNsrODBPLANKeyExtraction",
-          "hlrNsrSERVICEPLANKeyExtraction",
-          "hlrNsrCSIPLANKeyExtraction",
-          "hlrNsrFRAUDPROFILEKeyExtraction",
-          "hlrNsrFRAUDOBSERVATIONKeyExtraction",
-          "hlrNsrPDNPLANKeyExtraction",
-          "hlrNsrRESETTRIGGERINFOKeyExtraction",
-          "hlrNsrHLRFTNODATAKeyExtraction",
-          "hlrNsrHLRFTNOPROFILEKeyExtraction",
-		  "hlrCounterRootEntryKeyExtraction",
-		 "hlrDsHlrRootEntryKeyExtraction",
-		 "hlrDsIMSISWAPRootEntryKeyExtraction",
-		"hlrSchedIMSISwapRootEntryKeyExtraction",
-		"hlrCompIMSISwapRootEntryKeyExtraction"
-        ],
-        "adapt-attr-rules": [
-          "hlrOmcIdEnabled"
-        ],
-        "trigger-rules": [
-          "CHANGEOVER-Att-HLR"
+          "hssWithMsisdnToSubId",
+          "hssWithImsiToSubId",
+          "hssWithImpiToSubId",
+          "hssWithImpuToSubId",
+          "hssNsrRootEntryKeyExtraction",
+          "hssNsrUpperNodeKeyExtraction",
+          "hssNsrAsPermissionsKeyExtraction",
+          "hssNsrGlobalFilterCriteriaKeyExtraction",
+          "hssNsrServiceIDsKeyExtraction",
+          "hssNsrGroupImpuKeyExtraction",
+          "hssNsrXmlSchemaKeyExtraction",
+          "hssNsrVisitedNetwListKeyExtraction",
+          "hssNsrVisitedNetworksKeyExtraction",
+          "hssNsrNafGroupIdsKeyExtraction",
+          "hssNsrCXRESTRICTIONVPLMNIDKeyExtraction",
+          "hssNsrImsAsSipAddressKeyExtraction",
+          "hssNsrImsGlobalTriggerPointKeyExtraction",
+          "hssNsrImsServiceIdListKeyExtraction",
+          "hssNsrImsSharedRepositoryDataKeyExtraction",
+          "hssNsrImsSharedProfileKeyExtraction",
+          "hssNsrImsSharedServiceProfileKeyExtraction",
+          "hssNsrWildcardIdentityKeyExtraction",
+          "hssNsrWildcardImpuKeyExtraction",
+          "hssNsrResetInfoKeyExtraction",
+          "hssNsrDeleteInfoKeyExtraction",
+		  "hssNsrHssXmlSubSchemaKeyExtraction",
+		  "hssNsrImsGifcDataKeyExtraction",
+		  "hssTempTriggersRootEntryKeyExtraction"
         ]
       }
     ],
-"user-profile-extensions": [
-      {
-        "ext-user-profile-name": "hssUserProfile",
-        "ext-trigger-rules": [
-          "HLR-EPSDATA-Att-DEFAULT"
-        ]
-      },
-      {
-        "ext-user-profile-name": "epsUserProfile",
-        "ext-adapt-name-rules": [
-          "hlrNsrRootEntryKeyExtraction",
-          "hlrNsrUpperNodeKeyExtraction",
-          "hlrNsrDCSIKeyExtraction",
-          "hlrNsrSSCSIKeyExtraction",
-          "hlrNsrMCSIKeyExtraction",
-          "hlrNsrMGCSIKeyExtraction",
-          "hlrNsrSCTRANSKeyExtraction",
-          "hlrNsrMSPKeyExtraction",
-          "hlrNsrGPRSCSIKeyExtraction",
-          "hlrNsrSMSCSIKeyExtraction",
-          "hlrNsrVTCSIKeyExtraction",
-          "hlrNsrMTSMSCSIKeyExtraction",
-          "hlrNsrUGCSIKeyExtraction",
-          "hlrNsrUGCSIExtKeyExtraction",
-          "hlrNsrLCSPROFKeyExtraction",
-          "hlrNsrOCSIKeyExtraction",
-          "hlrNsrUCSIKeyExtraction",
-          "hlrNsrTCSIKeyExtraction",
-          "hlrNsrBCASETKeyExtraction",
-          "hlrNsrSUBRELROKeyExtraction",
-          "hlrNsrQOFSERVKeyExtraction",
-          "hlrNsrEOICKKeyExtraction",
-          "hlrNsrEOINCIKeyExtraction",
-          "hlrNsrOICKKeyExtraction",
-          "hlrNsrETICKKeyExtraction",
-          "hlrNsrETINCIKeyExtraction",
-          "hlrNsrTICKKeyExtraction",
-          "hlrNsrVMSKeyExtraction",
-          "hlrNsrROAMAREAKeyExtraction",
-          "hlrNsrRESETINFOKeyExtraction",
-          "hlrNsrDELETEINFOKeyExtraction",
-          "hlrNsrPROHIBFTNOKeyExtraction",
-          "hlrNsrREGEXKeyExtraction",
-          "hlrNsrADVTKeyExtraction",
-          "hlrNsrEMOICKKeyExtraction",
-		  "hlrNsrhssImeisvWildCardListKeyExtraction",
-          "hlrNsrSSETKeyExtraction",
-          "hlrNsrPRIORITYLISTKeyExtraction",
-          "hlrNsrPDPCONTEXTKeyExtraction",
-          "hlrNsrADDRESSLISTKeyExtraction",
-          "hlrNsrINSMSKeyExtraction",
-          "hlrNsrGMLCKeyExtraction",
-          "hlrNsrNBRTRANSLATIONKeyExtraction",
-          "hlrNsrNBRRULESETKeyExtraction",
-          "hlrNsrNBRRULEKeyExtraction",
-          "hlrNsrCSITREATMENTINFOKeyExtraction",
-          "hlrNsrPSTREATMENTINFOKeyExtraction",
-          "hlrNsrCATEGORYTREATMENTINFOKeyExtraction",
-          "hlrNsrROAMSUBSCRIPTIONINFOKeyExtraction",
-          "hlrNsrROAMPLANINFOKeyExtraction",
-          "hlrNsrEROAMPLANINFOKeyExtraction",
-          "hlrNsrROAMPLANKeyExtraction",
-          "hlrNsrBSPLANKeyExtraction",
-          "hlrNsrSSPLANKeyExtraction",
-          "hlrNsrODBPLANKeyExtraction",
-          "hlrNsrSERVICEPLANKeyExtraction",
-          "hlrNsrCSIPLANKeyExtraction",
-          "hlrNsrFRAUDPROFILEKeyExtraction",
-          "hlrNsrFRAUDOBSERVATIONKeyExtraction",
-          "hlrNsrPDNPLANKeyExtraction",
-          "hlrNsrRESETTRIGGERINFOKeyExtraction",
-          "hlrNsrHLRFTNODATAKeyExtraction",
-          "hlrNsrHLRFTNOPROFILEKeyExtraction",
-		  "hlrCounterRootEntryKeyExtraction",
-		 "hlrDsHlrRootEntryKeyExtraction",
-		 "hlrDsIMSISWAPRootEntryKeyExtraction",
-		"hlrSchedIMSISwapRootEntryKeyExtraction",
-		"hlrCompIMSISwapRootEntryKeyExtraction"
-        ],
-        "ext-trigger-rules": [
-          "HLR-EPSDATA-Att-DEFAULT"
-        ]
-      },
+    "user-profile-extensions": [
       {
         "ext-user-profile-name": "pgwNoTrigUserProfile",
         "ext-adapt-name-rules": [
-          "hlrGroupMsisdnKeyExtraction",
-          "hlrGroupMsisdnAliasKeyExtraction",
-          "hlrNsrRootEntryKeyExtraction",
-          "hlrNsrUpperNodeKeyExtraction",
-          "hlrNsrDCSIKeyExtraction",
-          "hlrNsrSSCSIKeyExtraction",
-          "hlrNsrMCSIKeyExtraction",
-          "hlrNsrMGCSIKeyExtraction",
-          "hlrNsrSCTRANSKeyExtraction",
-          "hlrNsrMSPKeyExtraction",
-          "hlrNsrGPRSCSIKeyExtraction",
-          "hlrNsrSMSCSIKeyExtraction",
-          "hlrNsrVTCSIKeyExtraction",
-          "hlrNsrMTSMSCSIKeyExtraction",
-          "hlrNsrUGCSIKeyExtraction",
-          "hlrNsrUGCSIExtKeyExtraction",
-          "hlrNsrLCSPROFKeyExtraction",
-          "hlrNsrOCSIKeyExtraction",
-          "hlrNsrUCSIKeyExtraction",
-          "hlrNsrTCSIKeyExtraction",
-          "hlrNsrBCASETKeyExtraction",
-          "hlrNsrSUBRELROKeyExtraction",
-          "hlrNsrQOFSERVKeyExtraction",
-          "hlrNsrEOICKKeyExtraction",
-          "hlrNsrEOINCIKeyExtraction",
-          "hlrNsrOICKKeyExtraction",
-          "hlrNsrETICKKeyExtraction",
-          "hlrNsrETINCIKeyExtraction",
-          "hlrNsrTICKKeyExtraction",
-          "hlrNsrVMSKeyExtraction",
-          "hlrNsrROAMAREAKeyExtraction",
-          "hlrNsrRESETINFOKeyExtraction",
-          "hlrNsrDELETEINFOKeyExtraction",
-          "hlrNsrPROHIBFTNOKeyExtraction",
-          "hlrNsrREGEXKeyExtraction",
-          "hlrNsrADVTKeyExtraction",
-          "hlrNsrEMOICKKeyExtraction",
-		  "hlrNsrhssImeisvWildCardListKeyExtraction",
-          "hlrNsrSSETKeyExtraction",
-          "hlrNsrPRIORITYLISTKeyExtraction",
-          "hlrNsrPDPCONTEXTKeyExtraction",
-          "hlrNsrADDRESSLISTKeyExtraction",
-          "hlrNsrINSMSKeyExtraction",
-          "hlrNsrGMLCKeyExtraction",
-          "hlrNsrNBRTRANSLATIONKeyExtraction",
-          "hlrNsrNBRRULESETKeyExtraction",
-          "hlrNsrNBRRULEKeyExtraction",
-          "hlrNsrCSITREATMENTINFOKeyExtraction",
-          "hlrNsrPSTREATMENTINFOKeyExtraction",
-          "hlrNsrCATEGORYTREATMENTINFOKeyExtraction",
-          "hlrNsrROAMSUBSCRIPTIONINFOKeyExtraction",
-          "hlrNsrROAMPLANINFOKeyExtraction",
-          "hlrNsrEROAMPLANINFOKeyExtraction",
-          "hlrNsrROAMPLANKeyExtraction",
-          "hlrNsrBSPLANKeyExtraction",
-          "hlrNsrSSPLANKeyExtraction",
-          "hlrNsrODBPLANKeyExtraction",
-          "hlrNsrSERVICEPLANKeyExtraction",
-          "hlrNsrCSIPLANKeyExtraction",
-          "hlrNsrFRAUDPROFILEKeyExtraction",
-          "hlrNsrFRAUDOBSERVATIONKeyExtraction",
-          "hlrNsrPDNPLANKeyExtraction",
-          "hlrNsrRESETTRIGGERINFOKeyExtraction",
-          "hlrNsrHLRFTNODATAKeyExtraction",
-          "hlrNsrHLRFTNOPROFILEKeyExtraction",
-		  "hlrCounterRootEntryKeyExtraction",
-		 "hlrDsHlrRootEntryKeyExtraction",
-		 "hlrDsIMSISWAPRootEntryKeyExtraction",
-		"hlrSchedIMSISwapRootEntryKeyExtraction",
-		"hlrCompIMSISwapRootEntryKeyExtraction"
+          "hssNsrRootEntryKeyExtraction",
+          "hssNsrUpperNodeKeyExtraction",
+          "hssNsrAsPermissionsKeyExtraction",
+          "hssNsrGlobalFilterCriteriaKeyExtraction",
+          "hssNsrServiceIDsKeyExtraction",
+          "hssNsrGroupImpuKeyExtraction",
+          "hssNsrXmlSchemaKeyExtraction",
+          "hssNsrVisitedNetwListKeyExtraction",
+          "hssNsrVisitedNetworksKeyExtraction",
+          "hssNsrNafGroupIdsKeyExtraction",
+          "hssNsrCXRESTRICTIONVPLMNIDKeyExtraction",
+          "hssNsrImsAsSipAddressKeyExtraction",
+          "hssNsrImsGlobalTriggerPointKeyExtraction",
+          "hssNsrImsServiceIdListKeyExtraction",
+          "hssNsrImsSharedRepositoryDataKeyExtraction",
+          "hssNsrImsSharedProfileKeyExtraction",
+          "hssNsrImsSharedServiceProfileKeyExtraction",
+          "hssNsrWildcardIdentityKeyExtraction",
+          "hssNsrWildcardImpuKeyExtraction",
+          "hssNsrResetInfoKeyExtraction",
+          "hssNsrDeleteInfoKeyExtraction",
+		  "hssNsrHssXmlSubSchemaKeyExtraction",
+		  "hssNsrImsGifcDataKeyExtraction",
+		  "hssTempTriggersRootEntryKeyExtraction"
         ]
       },
- {
+      {
         "ext-user-profile-name": "pgwOperUserProfile",
         "ext-adapt-name-rules": [
-          "hlrGroupMsisdnKeyExtraction",
-          "hlrGroupMsisdnAliasKeyExtraction",
-          "hlrNsrRootEntryKeyExtraction",
-          "hlrNsrUpperNodeKeyExtraction",
-          "hlrNsrDCSIKeyExtraction",
-          "hlrNsrSSCSIKeyExtraction",
-          "hlrNsrMCSIKeyExtraction",
-          "hlrNsrMGCSIKeyExtraction",
-          "hlrNsrSCTRANSKeyExtraction",
-          "hlrNsrMSPKeyExtraction",
-          "hlrNsrGPRSCSIKeyExtraction",
-          "hlrNsrSMSCSIKeyExtraction",
-          "hlrNsrVTCSIKeyExtraction",
-          "hlrNsrMTSMSCSIKeyExtraction",
-          "hlrNsrUGCSIKeyExtraction",
-          "hlrNsrUGCSIExtKeyExtraction",
-          "hlrNsrLCSPROFKeyExtraction",
-          "hlrNsrOCSIKeyExtraction",
-          "hlrNsrUCSIKeyExtraction",
-          "hlrNsrTCSIKeyExtraction",
-          "hlrNsrBCASETKeyExtraction",
-          "hlrNsrSUBRELROKeyExtraction",
-          "hlrNsrQOFSERVKeyExtraction",
-          "hlrNsrEOICKKeyExtraction",
-          "hlrNsrEOINCIKeyExtraction",
-          "hlrNsrOICKKeyExtraction",
-          "hlrNsrETICKKeyExtraction",
-          "hlrNsrETINCIKeyExtraction",
-          "hlrNsrTICKKeyExtraction",
-          "hlrNsrVMSKeyExtraction",
-          "hlrNsrROAMAREAKeyExtraction",
-          "hlrNsrRESETINFOKeyExtraction",
-          "hlrNsrDELETEINFOKeyExtraction",
-          "hlrNsrPROHIBFTNOKeyExtraction",
-          "hlrNsrREGEXKeyExtraction",
-          "hlrNsrADVTKeyExtraction",
-          "hlrNsrEMOICKKeyExtraction",
-		  "hlrNsrhssImeisvWildCardListKeyExtraction",
-          "hlrNsrSSETKeyExtraction",
-          "hlrNsrPRIORITYLISTKeyExtraction",
-          "hlrNsrPDPCONTEXTKeyExtraction",
-          "hlrNsrADDRESSLISTKeyExtraction",
-          "hlrNsrINSMSKeyExtraction",
-          "hlrNsrGMLCKeyExtraction",
-          "hlrNsrNBRTRANSLATIONKeyExtraction",
-          "hlrNsrNBRRULESETKeyExtraction",
-          "hlrNsrNBRRULEKeyExtraction",
-          "hlrNsrCSITREATMENTINFOKeyExtraction",
-          "hlrNsrPSTREATMENTINFOKeyExtraction",
-          "hlrNsrCATEGORYTREATMENTINFOKeyExtraction",
-          "hlrNsrROAMSUBSCRIPTIONINFOKeyExtraction",
-          "hlrNsrROAMPLANINFOKeyExtraction",
-          "hlrNsrEROAMPLANINFOKeyExtraction",
-          "hlrNsrROAMPLANKeyExtraction",
-          "hlrNsrBSPLANKeyExtraction",
-          "hlrNsrSSPLANKeyExtraction",
-          "hlrNsrODBPLANKeyExtraction",
-          "hlrNsrSERVICEPLANKeyExtraction",
-          "hlrNsrCSIPLANKeyExtraction",
-          "hlrNsrFRAUDPROFILEKeyExtraction",
-          "hlrNsrFRAUDOBSERVATIONKeyExtraction",
-          "hlrNsrPDNPLANKeyExtraction",
-          "hlrNsrRESETTRIGGERINFOKeyExtraction",
-          "hlrNsrHLRFTNODATAKeyExtraction",
-          "hlrNsrHLRFTNOPROFILEKeyExtraction",
-		  "hlrCounterRootEntryKeyExtraction",
-		 "hlrDsHlrRootEntryKeyExtraction",
-		 "hlrDsIMSISWAPRootEntryKeyExtraction",
-		"hlrSchedIMSISwapRootEntryKeyExtraction",
-		"hlrCompIMSISwapRootEntryKeyExtraction"
+          "hssNsrRootEntryKeyExtraction",
+          "hssNsrUpperNodeKeyExtraction",
+          "hssNsrAsPermissionsKeyExtraction",
+          "hssNsrGlobalFilterCriteriaKeyExtraction",
+          "hssNsrServiceIDsKeyExtraction",
+          "hssNsrGroupImpuKeyExtraction",
+          "hssNsrXmlSchemaKeyExtraction",
+          "hssNsrVisitedNetwListKeyExtraction",
+          "hssNsrVisitedNetworksKeyExtraction",
+          "hssNsrNafGroupIdsKeyExtraction",
+          "hssNsrCXRESTRICTIONVPLMNIDKeyExtraction",
+          "hssNsrImsAsSipAddressKeyExtraction",
+          "hssNsrImsGlobalTriggerPointKeyExtraction",
+          "hssNsrImsServiceIdListKeyExtraction",
+          "hssNsrImsSharedRepositoryDataKeyExtraction",
+          "hssNsrImsSharedProfileKeyExtraction",
+          "hssNsrImsSharedServiceProfileKeyExtraction",
+          "hssNsrWildcardIdentityKeyExtraction",
+          "hssNsrWildcardImpuKeyExtraction",
+          "hssNsrResetInfoKeyExtraction",
+          "hssNsrDeleteInfoKeyExtraction",
+		  "hssNsrHssXmlSubSchemaKeyExtraction",
+		  "hssNsrImsGifcDataKeyExtraction",
+		  "hssTempTriggersRootEntryKeyExtraction"
         ],
-		 "ext-trigger-rules": [
-          "SUBINNSS-Att-DEFAULT",
-          "MSISDNINNSS-Att-DEFAULT",
-          "SSINNSSPARAM-Att-DEFAULT",
-          "SSINNSSCUG-Att-DEFAULT",
-          "LATEFEAT-Att-DEFAULT",
-          "GPRSDATA-Att-DEFAULT",
-          "CUGPARAM-Att-DEFAULT",
-          "RSZILISTINNSS-Att-DEFAULT",
-          "VBSDATA-Att-DEFAULT",
-          "RESET-INFO-Att-DEFAULT",
-          "O-CSI-Obj-DEFAULT",
-          "T-CSI-Obj-DEFAULT",
-          "NSR-U-CSI-Obj-DEFAULT",
-          "BCASETINNSS-Obj-DEFAULT",
-          "SUBRELRO-Obj-DEFAULT",
-          "QOFSERV-Obj-DEFAULT",
-          "ROAM-AREA-Obj-DEFAULT",
-          "UG-CSI-Obj-DEFAULT",
-          "MSP-Obj-DEFAULT",
-          "GPRS-CSI-Obj-DEFAULT",
-          "M-CSI-Obj-DEFAULT",
-          "SMS-CSI-Obj-DEFAULT",
-          "VT-CSI-Obj-DEFAULT",
-          "MG-CSI-Obj-DEFAULT",
-          "SS-CSI-Obj-DEFAULT",
-          "D-CSI-Obj-DEFAULT",
-          "LCSPROFILE-Obj-DEFAULT",
-          "PROHIBFTNO-Obj-DEFAULT",
-          "VMS-Obj-DEFAULT",
-          "MTSMS-CSI-Obj-DEFAULT",
-          "SHORTCODETRANSL-Obj-DEFAULT",
-          "OICK-Obj-DEFAULT",
-          "TICK-Obj-DEFAULT",
-          "EOICK-Obj-DEFAULT",
-          "EOINCI-Obj-DEFAULT",
-          "ETICK-Obj-DEFAULT",
-          "ETINCI-Obj-DEFAULT",
-          "regularExpression-Obj-DEFAULT",
-          "TDPDATA-O-CSI-Obj-DEFAULT",
-          "TDPDATA-T-CSI-Obj-DEFAULT",
-          "TDPDATA-GPRS-CSI-Obj-DEFAULT",
-          "TDPDATA-SMS-CSI-Obj-DEFAULT",
-          "TDPDATA-VT-CSI-Obj-DEFAULT",
-          "TDPDATA-MTSMS-CSI-Obj-DEFAULT",
-          "U-CSI-Obj-DEFAULT",
-          "TDPDATA-D-CSI-Obj-DEFAULT",
-          "SUBINNSS-AttDEL-DEFAULT",
-          "MULTISIM-Att-DEFAULT",
-          "ADVT-Att-DEFAULT",
-          "U-CSI-Ext-Obj-DEFAULT",
-          "UG-CSI-Ext-Obj-DEFAULT",
-          "ROAMSUBSCRIPTIONINFO-Obj-DEFAULT",
-          "ROAMPLANINFO-Obj-DEFAULT",
-          "ROAMPLAN-Obj-DEFAULT",
-          "BSPLAN-Obj-DEFAULT",
-          "SSPLAN-Obj-DEFAULT",
-          "CSIPLAN-Obj-DEFAULT",
-          "ODBPLAN-Obj-DEFAULT",
-          "CHANGEOVER-Obj-DEFAULT",
-          "MSSMULTISIMGROUP-Att-DEFAULT",
-          "GMLC-Obj-DEFAULT",
-          "PROP-IN-SMS-Obj-DEFAULT",
-          "ADDRESSLIST-Obj-DEFAULT",
-          "SMSPRIORITYLIST-Obj-DEFAULT",
-          "SMSFEATURE-Obj-DEFAULT",
-          "SSET-Obj-DEFAULT",
-          "EMOICK-Obj-DEFAULT",
-          "NBRTRANSLATION-Obj-DEFAULT",
-          "NBRTRANSLATIONINFO-Obj-DEFAULT",
-          "NBRRULESET-Obj-DEFAULT",
-          "NBRRULE-Obj-DEFAULT",
-          "NBRRULEACTION-Obj-DEFAULT",
-          "NEXTRULESTEP-Obj-DEFAULT",
-          "DEFTOKENLIST-Obj-DEFAULT",
-          "TOKENSETCRITERIA-Obj-DEFAULT",
-          "HLR-EPSDATA-Att-DEFAULT",
-          "CSITREATMENTINFO-Obj-DEFAULT",
-          "PSTREATMENTINFO-Obj-DEFAULT",
-          "SERVICEPLAN-Obj-DEFAULT",
-          "CATEGORYTREATMENTINFO-Obj-DEFAULT",
-          "PDPCONTEXT-Obj-DEFAULT",
-          "HLRFRAUDPROFILE-Obj-DEFAULT",
-          "HLRFRAUDOBS-Obj-DEFAULT",
-          "GSMTRACINGPROFILE-Obj-DEFAULT",
-          "SUPPSERVICES-Obj-DEFAULT",
-          "BASICSERVINNSS-Obj-DEFAULT",
-          "HLRFTNOPROFILE-Obj-DEFAULT",
-          "HLRFTNODATA-Obj-DEFAULT",
-          "HLRROAMAREALIST-Obj-DEFAULT",
-		  "hssImeisvWildCardList-HLR-Obj-DEFAULT",
-          "LCSCLIENT-Obj-DEFAULT",
-          "CHANGEOVER-Att-HLR",
-          "CHANGEOVEREND-Att-HLR",
-          "ocsiTrig",
-          "tdpocsiTrig",
-          "tcsiTrig",
-          "tdptcsiTrig",
-          "nsrucsiTrig",
-          "ucsiTrig",
-          "bcasetTrig",
-          "subrelroTrig",
-          "qosprofTrig",
-          "roamareaTrig",
-          "ugcsiTrig",
-          "mspTrig",
-          "gprscsiTrig",
-          "tdpgrpscsiTrig",
-          "mcsiTrig",
-          "smscsiTrig",
-          "tdpsmscsiTrig",
-          "vtcsiTrig",
-          "tdpvtcsiTrig",
-          "mgcsiTrig",
-          "sscsiTrig",
-          "dcsiTrig",
-          "tdpdcsiTrig",
-          "tpd3Trig",
-          "lcsprofTrig",
-          "lcsclientTrig",
-          "prohibftnoTrig",
-          "vmsTrig",
-          "mtsmscsiTrig",
-          "tdpmtsmscsiTrig",
-          "oick",
-          "tick",
-          "eoick",
-          "etick",
-          "eoinci",
-          "etinci",
-          "ussdAdvt",
-          "ucsiextTrig",
-          "ugcsiextTrig",
-          "roamSubInfoTrig",
-          "roamPlanTrig",
-          "bsPlanTrig",
-          "ssPlanTrig",
-          "odbPlanTrig",
-          "csiPlanTrig",
-          "CHANGEOVER-Att-HLR",
-          "CHANGEOVEREND-Att-HLR",
-          "gmlcTrig",
-          "propInSmsInfoTrig",
-          "addressListTrig",
-          "smsPriorityListTrig",
-          "ssetTrig",
-          "ruleSetTrig",
-          "ruleTrig",
-          "emoickTrig",
-          "categoryTreatmentInfoTrig",
-          "csiTreatmentInfoTrig",
-          "psTreatmentInfoTrig",
-          "servicePlanTrig",
-          "pdpContextTrig",
-          "hlrfraudprofileTrig",
-          "translationTrig",
-          "translationInfoTrig",
-          "ruleActionTrig",
-          "nextRuleStepTrig",
-          "defTokenListTrig",
-          "tokenSetCriteriaTrig",
-          "hlrFtnoProfileTrig",
-          "hlrFtnoDataTrig",
-          "hlrRoamAreaListTrig"
-        ]
-      },
-        {
-        "ext-user-profile-name": "pgwLIUserProfile",
         "ext-trigger-rules": [
-          "IRT-Obj-DEFAULT",
-          "LI-IMSI-Obj-DEFAULT",
-          "LI-MSISDN-Obj-DEFAULT"
+         "c-hssXmlSchema-Obj",
+			"hssSubscription-Att-DEFAULT",
+			"HSS-RR-LI-IMSI-Obj-DEFAULT",
+			"imsAsSipAddress-Obj-DEFAULT",
+			"hssWildcardImpu-Obj-DEFAULT",
+			"c-imsSharedServiceProfile-Obj",
+			"imsGifcReplacement-Obj-DEFAULT",
+			"c-hssNafGroupIds-Obj",
+			"imsGlobalTriggerPoint-Obj-DEFAULT",
+			"imsExtendedPriority-Obj-DEFAULT",
+			"hssIrs-Obj-DEFAULT",
+			"c-hssServiceIDs-Obj",
+			"hssAsPermissions-Obj-DEFAULT",
+			"imsSharedRepositoryData-Obj-DEFAULT",
+			"hssServiceIDs-Obj-DEFAULT",
+			"c-hssCX-RESTRICTION-VPLMNID-Obj",
+			"hssTriggerRTR-Obj-DEFAULT",
+			"hssCX-RESTRICTION-VPLMNID-Obj-DEFAULT",
+			"HSS-IRT-Obj-DEFAULT",
+			"imsRefLocInfo-Obj-DEFAULT",
+			"c-imsSharedImpu-Obj",
+			"c-imsSharedRepositoryData-Obj",
+			"hssVisitedNetwList-Obj-DEFAULT",
+			"hssGroupImpu-Obj-DEFAULT",
+			"cmActivation-hsssubinnss-Att-DEFAULT",
+			"imsSharedImpu-Obj-DEFAULT",
+			"hssGlobalFilterCriteria-Obj-DEFAULT",
+			"c-hssGlobalFilterCriteria-Obj",
+			"HSS-LI-MSISDN-Obj-DEFAULT",
+			"hssNotification-Obj-DEFAULT",
+			"imsSharedServiceProfile-Obj-DEFAULT",
+			"HSS-LI-IMPU-Obj-DEFAULT",
+			"imsSharedProfile-Obj-DEFAULT",
+			"SEQNUM-imsDomain-Att-DEFAULT",
+			"hssServiceProfile-Obj-DEFAULT",
+			"hssImpu-Obj-DEFAULT",
+			"hssTriggerPPR-Obj-DEFAULT",
+			"imsServiceIdList-Obj-DEFAULT",
+			"HSS-RR-LI-IMPU-Obj-DEFAULT",
+			"c-hssVisitedNetworks-Obj",
+			"HSS-RR-LI-MSISDN-Obj-DEFAULT",
+			"c-imsServiceIdList-Obj",
+			"hssImpi-Obj-DEFAULT",
+			"hssUserFilterCriteria-Obj-DEFAULT",
+			"HSS-LI-IMSI-Obj-DEFAULT",
+			"hssRepositoryData-Obj-DEFAULT",
+			"imsGifcData-Obj-DEFAULT",
+			"c-imsSharedProfile-Obj",
+			"hssAliasGroup-Obj-DEFAULT",
+			"hssAliasRepData-Obj-DEFAULT"
         ]
       },
 	  {
         "ext-user-profile-name": "pgwAdminUserProfile",
         "ext-adapt-name-rules": [
-          "hlrGroupMsisdnKeyExtraction",
-          "hlrGroupMsisdnAliasKeyExtraction",
-          "hlrNsrRootEntryKeyExtraction",
-          "hlrNsrUpperNodeKeyExtraction",
-          "hlrNsrDCSIKeyExtraction",
-          "hlrNsrSSCSIKeyExtraction",
-          "hlrNsrMCSIKeyExtraction",
-          "hlrNsrMGCSIKeyExtraction",
-          "hlrNsrSCTRANSKeyExtraction",
-          "hlrNsrMSPKeyExtraction",
-          "hlrNsrGPRSCSIKeyExtraction",
-          "hlrNsrSMSCSIKeyExtraction",
-          "hlrNsrVTCSIKeyExtraction",
-          "hlrNsrMTSMSCSIKeyExtraction",
-          "hlrNsrUGCSIKeyExtraction",
-          "hlrNsrUGCSIExtKeyExtraction",
-          "hlrNsrLCSPROFKeyExtraction",
-          "hlrNsrOCSIKeyExtraction",
-          "hlrNsrUCSIKeyExtraction",
-          "hlrNsrTCSIKeyExtraction",
-          "hlrNsrBCASETKeyExtraction",
-          "hlrNsrSUBRELROKeyExtraction",
-          "hlrNsrQOFSERVKeyExtraction",
-          "hlrNsrEOICKKeyExtraction",
-          "hlrNsrEOINCIKeyExtraction",
-          "hlrNsrOICKKeyExtraction",
-          "hlrNsrETICKKeyExtraction",
-          "hlrNsrETINCIKeyExtraction",
-          "hlrNsrTICKKeyExtraction",
-          "hlrNsrVMSKeyExtraction",
-          "hlrNsrROAMAREAKeyExtraction",
-          "hlrNsrRESETINFOKeyExtraction",
-          "hlrNsrDELETEINFOKeyExtraction",
-          "hlrNsrPROHIBFTNOKeyExtraction",
-          "hlrNsrREGEXKeyExtraction",
-          "hlrNsrADVTKeyExtraction",
-          "hlrNsrEMOICKKeyExtraction",
-		  "hlrNsrhssImeisvWildCardListKeyExtraction",
-          "hlrNsrSSETKeyExtraction",
-          "hlrNsrPRIORITYLISTKeyExtraction",
-          "hlrNsrPDPCONTEXTKeyExtraction",
-          "hlrNsrADDRESSLISTKeyExtraction",
-          "hlrNsrINSMSKeyExtraction",
-          "hlrNsrGMLCKeyExtraction",
-          "hlrNsrNBRTRANSLATIONKeyExtraction",
-          "hlrNsrNBRRULESETKeyExtraction",
-          "hlrNsrNBRRULEKeyExtraction",
-          "hlrNsrCSITREATMENTINFOKeyExtraction",
-          "hlrNsrPSTREATMENTINFOKeyExtraction",
-          "hlrNsrCATEGORYTREATMENTINFOKeyExtraction",
-          "hlrNsrROAMSUBSCRIPTIONINFOKeyExtraction",
-          "hlrNsrROAMPLANINFOKeyExtraction",
-          "hlrNsrEROAMPLANINFOKeyExtraction",
-          "hlrNsrROAMPLANKeyExtraction",
-          "hlrNsrBSPLANKeyExtraction",
-          "hlrNsrSSPLANKeyExtraction",
-          "hlrNsrODBPLANKeyExtraction",
-          "hlrNsrSERVICEPLANKeyExtraction",
-          "hlrNsrCSIPLANKeyExtraction",
-          "hlrNsrFRAUDPROFILEKeyExtraction",
-          "hlrNsrFRAUDOBSERVATIONKeyExtraction",
-          "hlrNsrPDNPLANKeyExtraction",
-          "hlrNsrRESETTRIGGERINFOKeyExtraction",
-          "hlrNsrHLRFTNODATAKeyExtraction",
-          "hlrNsrHLRFTNOPROFILEKeyExtraction",
-		  "hlrCounterRootEntryKeyExtraction",
-		 "hlrDsHlrRootEntryKeyExtraction",
-		 "hlrDsIMSISWAPRootEntryKeyExtraction",
-		"hlrSchedIMSISwapRootEntryKeyExtraction",
-		"hlrCompIMSISwapRootEntryKeyExtraction"
+          "hssNsrRootEntryKeyExtraction",
+          "hssNsrUpperNodeKeyExtraction",
+          "hssNsrAsPermissionsKeyExtraction",
+          "hssNsrGlobalFilterCriteriaKeyExtraction",
+          "hssNsrServiceIDsKeyExtraction",
+          "hssNsrGroupImpuKeyExtraction",
+          "hssNsrXmlSchemaKeyExtraction",
+          "hssNsrVisitedNetwListKeyExtraction",
+          "hssNsrVisitedNetworksKeyExtraction",
+          "hssNsrNafGroupIdsKeyExtraction",
+          "hssNsrCXRESTRICTIONVPLMNIDKeyExtraction",
+          "hssNsrImsAsSipAddressKeyExtraction",
+          "hssNsrImsGlobalTriggerPointKeyExtraction",
+          "hssNsrImsServiceIdListKeyExtraction",
+          "hssNsrImsSharedRepositoryDataKeyExtraction",
+          "hssNsrImsSharedProfileKeyExtraction",
+          "hssNsrImsSharedServiceProfileKeyExtraction",
+          "hssNsrWildcardIdentityKeyExtraction",
+          "hssNsrWildcardImpuKeyExtraction",
+          "hssNsrResetInfoKeyExtraction",
+          "hssNsrDeleteInfoKeyExtraction",
+		  "hssNsrHssXmlSubSchemaKeyExtraction",
+		  "hssNsrImsGifcDataKeyExtraction",
+		  "hssTempTriggersRootEntryKeyExtraction"
         ],
-		 "ext-trigger-rules": [
-          "SUBINNSS-Att-DEFAULT",
-          "MSISDNINNSS-Att-DEFAULT",
-          "SSINNSSPARAM-Att-DEFAULT",
-          "SSINNSSCUG-Att-DEFAULT",
-          "LATEFEAT-Att-DEFAULT",
-          "GPRSDATA-Att-DEFAULT",
-          "CUGPARAM-Att-DEFAULT",
-          "RSZILISTINNSS-Att-DEFAULT",
-          "VBSDATA-Att-DEFAULT",
-          "RESET-INFO-Att-DEFAULT",
-          "O-CSI-Obj-DEFAULT",
-          "T-CSI-Obj-DEFAULT",
-          "NSR-U-CSI-Obj-DEFAULT",
-          "BCASETINNSS-Obj-DEFAULT",
-          "SUBRELRO-Obj-DEFAULT",
-          "QOFSERV-Obj-DEFAULT",
-          "ROAM-AREA-Obj-DEFAULT",
-          "UG-CSI-Obj-DEFAULT",
-          "MSP-Obj-DEFAULT",
-          "GPRS-CSI-Obj-DEFAULT",
-          "M-CSI-Obj-DEFAULT",
-          "SMS-CSI-Obj-DEFAULT",
-          "VT-CSI-Obj-DEFAULT",
-          "MG-CSI-Obj-DEFAULT",
-          "SS-CSI-Obj-DEFAULT",
-          "D-CSI-Obj-DEFAULT",
-          "LCSPROFILE-Obj-DEFAULT",
-          "PROHIBFTNO-Obj-DEFAULT",
-          "VMS-Obj-DEFAULT",
-          "MTSMS-CSI-Obj-DEFAULT",
-          "SHORTCODETRANSL-Obj-DEFAULT",
-          "OICK-Obj-DEFAULT",
-          "TICK-Obj-DEFAULT",
-          "EOICK-Obj-DEFAULT",
-          "EOINCI-Obj-DEFAULT",
-          "ETICK-Obj-DEFAULT",
-          "ETINCI-Obj-DEFAULT",
-          "regularExpression-Obj-DEFAULT",
-          "TDPDATA-O-CSI-Obj-DEFAULT",
-          "TDPDATA-T-CSI-Obj-DEFAULT",
-          "TDPDATA-GPRS-CSI-Obj-DEFAULT",
-          "TDPDATA-SMS-CSI-Obj-DEFAULT",
-          "TDPDATA-VT-CSI-Obj-DEFAULT",
-          "TDPDATA-MTSMS-CSI-Obj-DEFAULT",
-          "U-CSI-Obj-DEFAULT",
-          "TDPDATA-D-CSI-Obj-DEFAULT",
-          "SUBINNSS-AttDEL-DEFAULT",
-          "MULTISIM-Att-DEFAULT",
-          "ADVT-Att-DEFAULT",
-          "U-CSI-Ext-Obj-DEFAULT",
-          "UG-CSI-Ext-Obj-DEFAULT",
-          "ROAMSUBSCRIPTIONINFO-Obj-DEFAULT",
-          "ROAMPLANINFO-Obj-DEFAULT",
-          "ROAMPLAN-Obj-DEFAULT",
-          "BSPLAN-Obj-DEFAULT",
-          "SSPLAN-Obj-DEFAULT",
-          "CSIPLAN-Obj-DEFAULT",
-          "ODBPLAN-Obj-DEFAULT",
-          "CHANGEOVER-Obj-DEFAULT",
-          "MSSMULTISIMGROUP-Att-DEFAULT",
-          "GMLC-Obj-DEFAULT",
-          "PROP-IN-SMS-Obj-DEFAULT",
-          "ADDRESSLIST-Obj-DEFAULT",
-          "SMSPRIORITYLIST-Obj-DEFAULT",
-          "SMSFEATURE-Obj-DEFAULT",
-          "SSET-Obj-DEFAULT",
-          "EMOICK-Obj-DEFAULT",
-          "NBRTRANSLATION-Obj-DEFAULT",
-          "NBRTRANSLATIONINFO-Obj-DEFAULT",
-          "NBRRULESET-Obj-DEFAULT",
-          "NBRRULE-Obj-DEFAULT",
-          "NBRRULEACTION-Obj-DEFAULT",
-          "NEXTRULESTEP-Obj-DEFAULT",
-          "DEFTOKENLIST-Obj-DEFAULT",
-          "TOKENSETCRITERIA-Obj-DEFAULT",
-          "HLR-EPSDATA-Att-DEFAULT",
-          "CSITREATMENTINFO-Obj-DEFAULT",
-          "PSTREATMENTINFO-Obj-DEFAULT",
-          "SERVICEPLAN-Obj-DEFAULT",
-          "CATEGORYTREATMENTINFO-Obj-DEFAULT",
-          "PDPCONTEXT-Obj-DEFAULT",
-          "HLRFRAUDPROFILE-Obj-DEFAULT",
-          "HLRFRAUDOBS-Obj-DEFAULT",
-          "GSMTRACINGPROFILE-Obj-DEFAULT",
-          "SUPPSERVICES-Obj-DEFAULT",
-          "BASICSERVINNSS-Obj-DEFAULT",
-          "HLRFTNOPROFILE-Obj-DEFAULT",
-          "HLRFTNODATA-Obj-DEFAULT",
-          "HLRROAMAREALIST-Obj-DEFAULT",
-		  "hssImeisvWildCardList-HLR-Obj-DEFAULT",
-          "LCSCLIENT-Obj-DEFAULT",
-          "CHANGEOVER-Att-HLR",
-          "CHANGEOVEREND-Att-HLR",
-          "ocsiTrig",
-          "tdpocsiTrig",
-          "tcsiTrig",
-          "tdptcsiTrig",
-          "nsrucsiTrig",
-          "ucsiTrig",
-          "bcasetTrig",
-          "subrelroTrig",
-          "qosprofTrig",
-          "roamareaTrig",
-          "ugcsiTrig",
-          "mspTrig",
-          "gprscsiTrig",
-          "tdpgrpscsiTrig",
-          "mcsiTrig",
-          "smscsiTrig",
-          "tdpsmscsiTrig",
-          "vtcsiTrig",
-          "tdpvtcsiTrig",
-          "mgcsiTrig",
-          "sscsiTrig",
-          "dcsiTrig",
-          "tdpdcsiTrig",
-          "tpd3Trig",
-          "lcsprofTrig",
-          "lcsclientTrig",
-          "prohibftnoTrig",
-          "vmsTrig",
-          "mtsmscsiTrig",
-          "tdpmtsmscsiTrig",
-          "oick",
-          "tick",
-          "eoick",
-          "etick",
-          "eoinci",
-          "etinci",
-          "ussdAdvt",
-          "ucsiextTrig",
-          "ugcsiextTrig",
-          "roamSubInfoTrig",
-          "roamPlanTrig",
-          "bsPlanTrig",
-          "ssPlanTrig",
-          "odbPlanTrig",
-          "csiPlanTrig",
-          "CHANGEOVER-Att-HLR",
-          "CHANGEOVEREND-Att-HLR",
-          "gmlcTrig",
-          "propInSmsInfoTrig",
-          "addressListTrig",
-          "smsPriorityListTrig",
-          "ssetTrig",
-          "ruleSetTrig",
-          "ruleTrig",
-          "emoickTrig",
-          "categoryTreatmentInfoTrig",
-          "csiTreatmentInfoTrig",
-          "psTreatmentInfoTrig",
-          "servicePlanTrig",
-          "pdpContextTrig",
-          "hlrfraudprofileTrig",
-          "translationTrig",
-          "translationInfoTrig",
-          "ruleActionTrig",
-          "nextRuleStepTrig",
-          "defTokenListTrig",
-          "tokenSetCriteriaTrig",
-          "hlrFtnoProfileTrig",
-          "hlrFtnoDataTrig",
-          "hlrRoamAreaListTrig"
+        "ext-trigger-rules": [
+         "c-hssXmlSchema-Obj",
+			"hssSubscription-Att-DEFAULT",
+			"HSS-RR-LI-IMSI-Obj-DEFAULT",
+			"imsAsSipAddress-Obj-DEFAULT",
+			"hssWildcardImpu-Obj-DEFAULT",
+			"c-imsSharedServiceProfile-Obj",
+			"imsGifcReplacement-Obj-DEFAULT",
+			"c-hssNafGroupIds-Obj",
+			"imsGlobalTriggerPoint-Obj-DEFAULT",
+			"imsExtendedPriority-Obj-DEFAULT",
+			"hssIrs-Obj-DEFAULT",
+			"c-hssServiceIDs-Obj",
+			"hssAsPermissions-Obj-DEFAULT",
+			"imsSharedRepositoryData-Obj-DEFAULT",
+			"hssServiceIDs-Obj-DEFAULT",
+			"c-hssCX-RESTRICTION-VPLMNID-Obj",
+			"hssTriggerRTR-Obj-DEFAULT",
+			"hssCX-RESTRICTION-VPLMNID-Obj-DEFAULT",
+			"HSS-IRT-Obj-DEFAULT",
+			"imsRefLocInfo-Obj-DEFAULT",
+			"c-imsSharedImpu-Obj",
+			"c-imsSharedRepositoryData-Obj",
+			"hssVisitedNetwList-Obj-DEFAULT",
+			"hssGroupImpu-Obj-DEFAULT",
+			"cmActivation-hsssubinnss-Att-DEFAULT",
+			"imsSharedImpu-Obj-DEFAULT",
+			"hssGlobalFilterCriteria-Obj-DEFAULT",
+			"c-hssGlobalFilterCriteria-Obj",
+			"HSS-LI-MSISDN-Obj-DEFAULT",
+			"hssNotification-Obj-DEFAULT",
+			"imsSharedServiceProfile-Obj-DEFAULT",
+			"HSS-LI-IMPU-Obj-DEFAULT",
+			"imsSharedProfile-Obj-DEFAULT",
+			"SEQNUM-imsDomain-Att-DEFAULT",
+			"hssServiceProfile-Obj-DEFAULT",
+			"hssImpu-Obj-DEFAULT",
+			"hssTriggerPPR-Obj-DEFAULT",
+			"imsServiceIdList-Obj-DEFAULT",
+			"HSS-RR-LI-IMPU-Obj-DEFAULT",
+			"c-hssVisitedNetworks-Obj",
+			"HSS-RR-LI-MSISDN-Obj-DEFAULT",
+			"c-imsServiceIdList-Obj",
+			"hssImpi-Obj-DEFAULT",
+			"hssUserFilterCriteria-Obj-DEFAULT",
+			"HSS-LI-IMSI-Obj-DEFAULT",
+			"hssRepositoryData-Obj-DEFAULT",
+			"imsGifcData-Obj-DEFAULT",
+			"c-imsSharedProfile-Obj",
+			"hssAliasGroup-Obj-DEFAULT",
+			"hssAliasRepData-Obj-DEFAULT"
         ]
       }
     ]
