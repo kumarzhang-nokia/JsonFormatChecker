@@ -568,7 +568,7 @@
             "key-attribute": "hssCounterName",
             "key-object-class": [ "null" ]
           },
-        "key-components": [
+        #"key-components": [
           {
             "key-pos": 2,
             "key-namespace": "o=hssCapacityCounters,o=hss,o=nss,o=services"
